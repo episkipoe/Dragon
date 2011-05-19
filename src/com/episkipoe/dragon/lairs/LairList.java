@@ -1,46 +1,28 @@
 package com.episkipoe.dragon.lairs;
 
+import java.util.ArrayList;
 import java.util.List;
 
-import android.app.Activity;
-import android.content.Context;
-import android.view.View;
-import android.widget.Button;
-import android.widget.LinearLayout;
+import com.episkipoe.dragon.commands.Command;
+import com.episkipoe.dragon.commands.CommandPage;
+import com.episkipoe.dragon.player.Player;
 
-public class LairList implements View.OnClickListener {
-	Activity activity;
-	public LairList(Activity activity) {
-		this.activity = activity;
+public class LairList extends CommandPage {
+	public LairList(Player player) {
+		super(player);
 	}
+	
+	public String getName() { return "Manage Lairs"; }
+	
 	List<Lair> lairs;
 	public void addLair(Lair l) { lairs.add(l); }
 	public List<Lair> getLairs() { return lairs; }
 
-	/*
-	 * UI
-	 */
-	
-	public Button getButton(Context c) { 
-		Button manageLairs = new Button(c);
-		manageLairs.setText("Manage Lairs");	
-		manageLairs.setOnClickListener(this);
-		return manageLairs;
+	protected void prepareCommands() {
+		commandList =new ArrayList<Command>();
+		if(lairs==null) return;
+		System.out.println(lairs.size() + " lairs");
+		for(Lair l : lairs) commandList.add(l);
 	}
 	
-	public void onClick(View v) {
-		System.out.println("clicked");
-		activity.setContentView(getActions());
-	}
-	
-	View getActions() {
-		LinearLayout layout = new LinearLayout(activity);
-
-		Button btn = new Button(activity);
-		btn.setText("test");	
-		btn.setOnClickListener(this);
-		layout.addView(btn);
-		
-		return layout;
-	}
 }

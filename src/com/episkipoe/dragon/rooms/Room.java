@@ -1,8 +1,13 @@
 package com.episkipoe.dragon.rooms;
 
-public abstract class Room {
+import com.episkipoe.dragon.commands.CommandPage;
+import com.episkipoe.dragon.player.Player;
 
-	public abstract String getName() ;	
+public abstract class Room extends CommandPage {
+
+	protected Room(Player player) {
+		super(player);
+	}
 
 }
 

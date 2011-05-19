@@ -11,6 +11,6 @@ public class Main extends Activity {
         super.onCreate(savedInstanceState);
         
         Player player = new Player(this);
-        setContentView(player.getActions());
+        player.showMainPage();
     }
 }
