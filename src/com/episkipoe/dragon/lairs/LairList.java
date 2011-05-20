@@ -14,9 +14,12 @@ public class LairList extends CommandPage {
 	
 	public String getName() { return "Manage Lairs"; }
 	
-	List<Lair> lairs;
-	public void addLair(Lair l) { lairs.add(l); }
-	public List<Lair> getLairs() { return lairs; }
+	List<Lair> lairs = null;
+	public void addLair(Lair l) { getLairs().add(l); }
+	public List<Lair> getLairs() { 
+		if(lairs==null) lairs = new ArrayList<Lair>();
+		return lairs; 
+	}
 
 	protected void prepareCommands() {
 		commandList =new ArrayList<Command>();

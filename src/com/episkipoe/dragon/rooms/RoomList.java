@@ -17,10 +17,11 @@ public class RoomList extends CommandPage {
 	
 	public String getName() { return "View Rooms"; }
 	
-	Map<String,Room> rooms;
+	private Map<String,Room> rooms;
 	public void add(Room r) { rooms.put(r.getName(), r); }
 	public void setRoom(String type, Room r) { rooms.put(type,r); }
 	public Room getRoom(String type) { return rooms.get(type); }
+	public int numRooms() { return rooms.size(); }
 
 	public View getActions() {
 		LinearLayout layout = new LinearLayout(player.getActivity());

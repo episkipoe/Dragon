@@ -4,36 +4,32 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.app.Activity;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.LinearLayout;
-import android.widget.ViewFlipper;
 
 import com.episkipoe.dragon.commands.CommandPage;
-import com.episkipoe.dragon.lairs.Lair;
 import com.episkipoe.dragon.lairs.LairList;
-import com.episkipoe.dragon.lairs.MountainLair;
-import com.episkipoe.dragon.rooms.Room;
 import com.episkipoe.dragon.rooms.treasure.TreasureBuilder;
-import com.episkipoe.dragon.rooms.treasure.TreasureRoom;
 
 public class Player {
+	Activity activity=null;
 	public Player(Activity activity) {
 		this.activity = activity;
-		
-		//PlayerUtils.initializePlayer(this);		
-		Lair firstLair = new MountainLair(this);
-		Room firstRoom = new TreasureRoom(this);
-		firstLair.getRoomList().add(firstRoom);
-		getLairList().addLair(firstLair);	
-		
-		mainActions = new ArrayList<CommandPage> ();
-		mainActions.add(getTreasureBuilder());
-		mainActions.add(getLairList());
+		PlayerUtils.initializePlayer(this);		
+		loadMainActions();
+	}
+	public Player() {
+		loadMainActions();
 	}
 	
 	List<CommandPage> mainActions;
+	void loadMainActions() {
+		mainActions = new ArrayList<CommandPage> ();
+		mainActions.add(getTreasureBuilder());
+		mainActions.add(getLairList());	
+	}
 	
-	Activity activity;
 	public Activity getActivity() { return activity; }
 	
 	PlayerProperties properties=null;
@@ -54,13 +50,14 @@ public class Player {
 		return treasureBuilder;
 	}
 
-	ViewFlipper flipper; 
-	public ViewFlipper getFlipper() { return flipper; }
+	PageManager pageManager=null; 
+	public PageManager getPageManager() { 
+		if(pageManager==null) pageManager = new PageManager(this);
+		return pageManager; 
+	}
 	
 	public void showMainPage() {
-		flipper = new ViewFlipper(activity);
-		flipper.addView(getActions());
-		activity.setContentView(flipper);
+		getPageManager().setView(getActions());
 	}
 	
 	public View getActions() {
@@ -71,7 +68,12 @@ public class Player {
 		}
 		return layout;
 	}
-	
+	public boolean onTouchEvent(MotionEvent event) {
+		getPageManager().onTouchEvent(event);
+		return false;
+	}
+
+
 
 	
 }

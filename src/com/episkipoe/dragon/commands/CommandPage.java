@@ -16,19 +16,20 @@ public abstract class CommandPage extends Command {
 	protected void prepareCommands() { }
 	
 	final public void onClick(View v) {
-		//player.getFlipper().addView(getPage());
-		player.getActivity().setContentView(getPage());
+		player.getPageManager().next(getPage());
 	}
 
 	final public View getPage() {
 		prepareCommands();
 		
 		LinearLayout layout = new LinearLayout(player.getActivity());
-		if(commandList == null) return layout;
-		
-		for(Command cmd : commandList) {
-			layout.addView(cmd.getButton());
+		layout.setOrientation(LinearLayout.VERTICAL);
+		if(commandList != null) {
+			for(Command cmd : commandList) {
+				layout.addView(cmd.getButton());
+			}
 		}
+		layout.addView(player.getPageManager().getBackButton());
 		
 		return layout;
 	}
