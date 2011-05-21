@@ -3,6 +3,7 @@ package com.episkipoe.dragon.commands;
 import java.util.List;
 
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -15,7 +16,7 @@ public abstract class CommandPage extends Command {
 
 	protected List<Command> commandList;
 	protected void prepareCommands() { }
-	protected void addHeader(View view) { }
+	protected void addHeader(ViewGroup layout) { }
 	
 	final public void onClick(View view) {
 		player.getPageManager().next(getPage());

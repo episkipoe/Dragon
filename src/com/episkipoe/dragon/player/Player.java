@@ -10,7 +10,7 @@ import android.widget.LinearLayout;
 
 import com.episkipoe.dragon.commands.CommandPage;
 import com.episkipoe.dragon.lairs.LairList;
-import com.episkipoe.dragon.rooms.treasure.TreasureBuilder;
+import com.episkipoe.dragon.pages.PageManager;
 
 public class Player {
 	Activity activity=null;
@@ -26,7 +26,6 @@ public class Player {
 	List<CommandPage> mainActions;
 	void loadMainActions() {
 		mainActions = new ArrayList<CommandPage> ();
-		mainActions.add(getTreasureBuilder());
 		mainActions.add(getLairList());	
 	}
 	
@@ -44,12 +43,6 @@ public class Player {
 		return lairs; 
 	}
 	
-	TreasureBuilder treasureBuilder=null;
-	public TreasureBuilder getTreasureBuilder() {
-		if(treasureBuilder==null) treasureBuilder = new TreasureBuilder(this);
-		return treasureBuilder;
-	}
-
 	PageManager pageManager=null; 
 	public PageManager getPageManager() { 
 		if(pageManager==null) pageManager = new PageManager(this);

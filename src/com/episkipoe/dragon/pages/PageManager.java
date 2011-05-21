@@ -1,4 +1,6 @@
-package com.episkipoe.dragon.player;
+package com.episkipoe.dragon.pages;
+
+import com.episkipoe.dragon.player.Player;
 
 import android.view.GestureDetector;
 import android.view.GestureDetector.SimpleOnGestureListener;
@@ -14,7 +16,7 @@ import android.widget.ViewFlipper;
 public class PageManager {
 	Player player = null;
 	ViewFlipper flipper=null;
-	PageManager (Player player) {
+	public PageManager (Player player) {
 		this.player = player;
 	}
 

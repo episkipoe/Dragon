@@ -1,17 +1,15 @@
 package com.episkipoe.dragon.rooms;
 
+import java.util.Collection;
 import java.util.Map;
 import java.util.TreeMap;
 
-import android.view.View;
-import android.widget.LinearLayout;
-
-import com.episkipoe.dragon.commands.CommandPage;
 import com.episkipoe.dragon.player.Player;
 
-public class RoomList extends CommandPage {
+public class RoomList {
+	Player player;
 	public RoomList(Player player) {
-		super(player);
+		this.player = player;
 		rooms = new TreeMap<String,Room>();
 	}
 	
@@ -23,14 +21,6 @@ public class RoomList extends CommandPage {
 	public Room getRoom(String type) { return rooms.get(type); }
 	public int numRooms() { return rooms.size(); }
 
-	public View getActions() {
-		LinearLayout layout = new LinearLayout(player.getActivity());
-
-		for(Room r : rooms.values()) {
-			layout.addView(r.getButton());
-		}
-		
-		return layout;
-	}
+	public Collection<Room> getRooms () { return rooms.values(); }
 	
 }

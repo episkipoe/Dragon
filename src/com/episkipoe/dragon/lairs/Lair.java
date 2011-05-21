@@ -1,7 +1,10 @@
 package com.episkipoe.dragon.lairs;
 
+import java.util.ArrayList;
+
 import android.content.Context;
 
+import com.episkipoe.dragon.commands.Command;
 import com.episkipoe.dragon.commands.CommandPage;
 import com.episkipoe.dragon.player.Player;
 import com.episkipoe.dragon.rooms.RoomList;
@@ -28,7 +31,12 @@ public abstract class Lair extends CommandPage {
 	// Actions that having a lair of this type enables
 	public void acquireWealth(Context c) { }
 	public void wreakHavoc(Context c) { }
-
+	
+	protected void prepareCommands() {
+		commandList =new ArrayList<Command>();
+		if(rooms==null) return;
+		commandList.addAll(getRoomList().getRooms());
+	}
 
 }
 

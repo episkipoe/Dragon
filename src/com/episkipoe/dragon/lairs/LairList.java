@@ -20,12 +20,18 @@ public class LairList extends CommandPage {
 		if(lairs==null) lairs = new ArrayList<Lair>();
 		return lairs; 
 	}
+	
+	LairBuilder lairBuilder=null;
+	private LairBuilder getLairBuilder() {
+		if(lairBuilder==null) lairBuilder = new LairBuilder(player);
+		return lairBuilder;
+	}
 
 	protected void prepareCommands() {
 		commandList =new ArrayList<Command>();
 		if(lairs==null) return;
-		System.out.println(lairs.size() + " lairs");
 		for(Lair l : lairs) commandList.add(l);
+		commandList.add(getLairBuilder());
 	}
 	
 }
