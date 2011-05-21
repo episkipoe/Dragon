@@ -12,7 +12,7 @@ public class LairList extends CommandPage {
 		super(player);
 	}
 	
-	public String getName() { return "Manage Lairs"; }
+	public String getCommandName() { return "Manage Lairs"; }
 	
 	List<Lair> lairs = null;
 	public void addLair(Lair l) { getLairs().add(l); }

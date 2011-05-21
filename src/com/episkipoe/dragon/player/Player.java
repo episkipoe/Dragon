@@ -8,6 +8,9 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.LinearLayout;
 
+import com.episkipoe.dragon.agents.Agent;
+import com.episkipoe.dragon.agents.Agent.Relationship;
+import com.episkipoe.dragon.agents.dragons.DragonAgent;
 import com.episkipoe.dragon.commands.CommandPage;
 import com.episkipoe.dragon.lairs.LairList;
 import com.episkipoe.dragon.pages.PageManager;
@@ -31,6 +34,15 @@ public class Player {
 	
 	public Activity getActivity() { return activity; }
 	
+	Agent playerAgent=null;
+	public Agent getPlayerAgent() {
+		if(playerAgent==null) {
+			playerAgent = new DragonAgent();
+			playerAgent.setRelationship(Relationship.PLAYER);
+		}
+		return playerAgent;
+	}
+	
 	PlayerProperties properties=null;
 	public PlayerProperties getProperties() {
 		if(properties==null) properties = new PlayerProperties();
@@ -41,6 +53,12 @@ public class Player {
 	public LairList getLairList() { 
 		if(lairs==null) lairs = new LairList(this);
 		return lairs; 
+	}
+	
+	LairList neighboringKingdoms=null;
+	public LairList getNeighboringKingdoms() { 
+		if(neighboringKingdoms==null) neighboringKingdoms = new LairList(this);
+		return neighboringKingdoms; 
 	}
 	
 	PageManager pageManager=null; 

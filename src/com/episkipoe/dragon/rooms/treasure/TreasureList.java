@@ -1,12 +1,15 @@
 package com.episkipoe.dragon.rooms.treasure;
 
+import java.io.Serializable;
 import java.util.Collection;
 import java.util.Map;
 import java.util.TreeMap;
 
 import com.episkipoe.dragon.player.Player;
 
-public class TreasureList {
+public class TreasureList implements Serializable {
+	private static final long serialVersionUID = 2490515336611342772L;
+	
 	Player player;
 	public TreasureList(Player player) {
 		this.player = player;

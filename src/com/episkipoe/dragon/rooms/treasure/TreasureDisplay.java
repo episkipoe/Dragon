@@ -16,7 +16,7 @@ class TreasureDisplay extends CommandPage {
 	}
 
 	@Override
-	public String getName() { return "Treasures"; }
+	public String getCommandName() { return "Treasures"; }
 	
 	protected void addHeader(ViewGroup layout) { 
 		if(treasures.getTreasures() == null) {

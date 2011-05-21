@@ -1,19 +1,33 @@
 package com.episkipoe.dragon.lairs;
 
-import com.episkipoe.dragon.player.Player;
+import java.util.ArrayList;
+import java.util.Collection;
 
-import android.content.Context;
-import android.widget.Button;
+import com.episkipoe.dragon.agents.Agent;
+import com.episkipoe.dragon.commands.Command;
+import com.episkipoe.dragon.player.Player;
+import com.episkipoe.dragon.rooms.treasure.RaidCommand;
+import com.episkipoe.dragon.rooms.treasure.gems.MineCommand;
 
 public class MountainLair extends Lair {
-	public MountainLair(Player player) {
-		super(player);
+	public MountainLair(Player player, Agent owner) {
+		super(player, owner);
 	}
 
-	public String getName() { return "Mountain Lair"; }
+	public String getCommandName() { return "Mountain Lair"; }
+	
 
-	public void acquireWealth(Context c) { 
-		Button btn = new Button(c);
-		btn.setText("Mine for gold");
+	public Collection<Command> treasureRoom() { 
+		if(owner==null) return null;
+		Collection<Command> cmds = new ArrayList<Command>();
+		switch(owner.getRelationship()) {
+		case PLAYER:
+			cmds.add(new MineCommand(player, this));
+			break;
+		case ENEMY:
+			cmds.add(new RaidCommand(player, this, getOwnerAndType()));
+			break;
+		}
+		return cmds;
 	}
 }

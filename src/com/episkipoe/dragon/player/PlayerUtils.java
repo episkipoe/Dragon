@@ -8,8 +8,8 @@ import com.episkipoe.dragon.rooms.treasure.TreasureRoom;
 public class PlayerUtils {
 
 	public static void initializePlayer(Player player) {
-		Lair firstLair = new MountainLair(player);
-		Room firstRoom = new TreasureRoom(player);
+		Lair firstLair = new MountainLair(player, player.getPlayerAgent());
+		Room firstRoom = new TreasureRoom(player, firstLair);
 		firstLair.getRoomList().add(firstRoom);
 		player.getLairList().addLair(firstLair);
 	}

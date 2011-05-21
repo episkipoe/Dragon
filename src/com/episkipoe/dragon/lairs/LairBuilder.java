@@ -11,7 +11,7 @@ public class LairBuilder extends Command {
 	}
 
 	@Override
-	public String getName() { return "Add Lair"; }
+	public String getCommandName() { return "Add Lair"; }
 	
 	public void onClick(View v) {
 		

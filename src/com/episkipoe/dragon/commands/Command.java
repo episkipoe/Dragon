@@ -14,14 +14,18 @@ public abstract class Command implements View.OnClickListener {
 	
 	/**
 	 * 
-	 * @return the name of the command
+	 * @return the name of the command (ie text to show on button)
 	 */
-	abstract public String getName();
+	abstract public String getCommandName();
+	/**
+	 * 
+	 * @return an optional description (ie a label to accompany the button)
+	 */
 	public String getDescription() { return null; }
 
 	final public Button getButton() { 
 		Button btn = new Button(player.getActivity());
-		btn.setText(getName());
+		btn.setText(getCommandName());
 		btn.setOnClickListener(this);
 		return btn;
 	}

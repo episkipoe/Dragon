@@ -27,7 +27,7 @@ public abstract class CommandPage extends Command {
 		LinearLayout layout = new LinearLayout(player.getActivity());
 		layout.setOrientation(LinearLayout.VERTICAL);
 		TextView title = new TextView(player.getActivity());
-		title.setText(getName());
+		title.setText(getCommandName());
 		layout.addView(title);
 		addHeader(layout);
 		

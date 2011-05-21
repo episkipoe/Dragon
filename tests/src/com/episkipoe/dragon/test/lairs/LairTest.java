@@ -14,7 +14,7 @@ public class LairTest extends android.test.ActivityInstrumentationTestCase2<Main
 		Player player = new Player();
 		LairList lairList = new LairList(player);
 		assertTrue(lairList.getLairs().size() == 0);
-		lairList.addLair(new MountainLair(player));
+		lairList.addLair(new MountainLair(player, player.getPlayerAgent()));
 		assertTrue(lairList.getLairs().size() == 1);
 	}
 }
