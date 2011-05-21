@@ -59,8 +59,11 @@ public class Player {
 	public void showMainPage() {
 		getPageManager().setView(getActions());
 	}
-	
+	public void setMainTitle() {
+		activity.setTitle("Dragon");
+	}
 	public View getActions() {
+		setMainTitle();
 		LinearLayout layout = new LinearLayout(activity);
 		layout.setOrientation(LinearLayout.VERTICAL);
 		for (CommandPage cmds : mainActions) {
