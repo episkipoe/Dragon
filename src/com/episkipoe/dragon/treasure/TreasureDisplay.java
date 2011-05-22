@@ -46,6 +46,8 @@ class TreasureDisplay extends CommandPage {
 		valLbl.setText("Value");
 		header.addView(valLbl);	
 		
+		table.setColumnStretchable(0, true);
+		table.setColumnStretchable(1, true);
 		for(Treasure t: treasures.getTreasures()) {
 			TableRow row = new TableRow(player.getActivity());
 			table.addView(row, params);

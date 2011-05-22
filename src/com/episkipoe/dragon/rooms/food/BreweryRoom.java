@@ -25,7 +25,7 @@ public class BreweryRoom extends Room {
 		}
 
 		public void onClick(View v) {
-			
+			//TODO grain => ale
 		}
 
 		@Override

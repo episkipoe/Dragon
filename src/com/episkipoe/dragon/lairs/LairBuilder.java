@@ -14,7 +14,7 @@ public class LairBuilder extends Command {
 	public String getCommandName() { return "Add Lair"; }
 	
 	public void onClick(View v) {
-		
+		//TODO add lair
 	}
 
 

@@ -1,12 +1,13 @@
 package com.episkipoe.dragon.common;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.ObjectOutputStream;
-import java.io.Serializable;
-import java.util.List;
+//import java.io.File;
+//import java.io.FileOutputStream;
+//import java.io.ObjectOutputStream;
+//import java.io.Serializable;
+//import java.util.List;
 
 public class FileUtils {
+	/*
 	public static void writeToFile(File fileName, List<Serializable> objects) throws Exception {
 		FileOutputStream fos=null;
 		ObjectOutputStream oos=null;
@@ -30,4 +31,5 @@ public class FileUtils {
 		} 
 		
 	}
+	*/
 }

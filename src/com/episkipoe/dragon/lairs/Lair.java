@@ -10,10 +10,10 @@ import com.episkipoe.dragon.commands.Command;
 import com.episkipoe.dragon.commands.CommandPage;
 import com.episkipoe.dragon.player.Player;
 import com.episkipoe.dragon.rooms.RoomSet;
-import com.episkipoe.dragon.treasure.Cost;
 
 public abstract class Lair extends CommandPage {
 	protected Agent owner;
+	protected LairList kingdom;
 	protected Lair(Player player, Agent owner) {
 		super(player);
 		this.owner = owner;
@@ -30,6 +30,8 @@ public abstract class Lair extends CommandPage {
 	 */
 	
 	final public Agent getOwner() { return owner; }
+	final public LairList getKingdom() { return kingdom; }
+	final public void setKingdom(LairList kingdom) { this.kingdom = kingdom; }
 	final public String getOwnerAndType() { return owner.getName() + "'s" + getCommandName(); }
 	final public boolean isMine() { return (owner.getRelationship() == Relationship.PLAYER); }
 	
@@ -50,10 +52,6 @@ public abstract class Lair extends CommandPage {
 		if(denizens==null) denizens = new AgentList(player);
 		return denizens;
 	}	
-	
-	final public boolean subtractCost(Cost cost, boolean notify) {
-		return true;
-	}
 	
 	final protected void prepareCommands() {
 		commandList =new ArrayList<Command>();

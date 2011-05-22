@@ -12,7 +12,7 @@ public class LairTest extends android.test.ActivityInstrumentationTestCase2<Main
 	}
 	
 	public void testLairList() {
-		Player player = new Player();
+		Player player = new Player(this.getActivity());
 		Agent playerAgent = player.getPlayerAgent();
 		LairList lairList = new LairList(player, playerAgent);
 		assertTrue(lairList.getLairs().size() == 0);

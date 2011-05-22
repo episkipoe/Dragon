@@ -26,12 +26,15 @@ public class LairList extends CommandPage {
 	public boolean isMine() { return (owner.getRelationship() == Relationship.PLAYER); }
 	
 	List<Lair> lairs = null;
-	public void addLair(Lair l) { getLairs().add(l); }
+	public void addLair(Lair l) { 
+		l.setKingdom(this);
+		getLairs().add(l); 
+	}
 	public List<Lair> getLairs() { 
 		if(lairs==null) lairs = new ArrayList<Lair>();
 		return lairs; 
 	}
-	
+
 	LairBuilder lairBuilder=null;
 	private LairBuilder getLairBuilder() {
 		if(lairBuilder==null) lairBuilder = new LairBuilder(player);

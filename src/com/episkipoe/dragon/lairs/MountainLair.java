@@ -29,12 +29,20 @@ public class MountainLair extends Lair {
 			MineRoom room = new MineRoom(player, this);
 			Cost cost = new Cost(10);
 			cmds.add(new BuildRoomCommand(player, room, cost));
-		} else if (!rooms.hasRoom(DungeonRoom.class)) {
+		} 
+		if (!rooms.hasRoom(TreasureRoom.class)) {
 			TreasureRoom room = new TreasureRoom(player, this);
 			TreasureList tl = new TreasureList(player);
 			tl.add(new IronTreasure());
 			Cost cost = new Cost(tl, 4);
 			cmds.add(new BuildRoomCommand(player, room, cost));
+		}
+		if (!rooms.hasRoom(DungeonRoom.class)) {
+			DungeonRoom room = new DungeonRoom(player, this);
+			TreasureList tl = new TreasureList(player);
+			tl.add(new IronTreasure());
+			Cost cost = new Cost(tl, 4);
+			cmds.add(new BuildRoomCommand(player, room, cost));		
 		}
 		return cmds;
 	}

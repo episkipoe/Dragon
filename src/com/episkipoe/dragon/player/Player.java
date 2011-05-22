@@ -1,11 +1,9 @@
 package com.episkipoe.dragon.player;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
 import android.app.Activity;
-import android.os.Environment;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -14,7 +12,6 @@ import com.episkipoe.dragon.agents.Agent;
 import com.episkipoe.dragon.agents.AgentDisplay;
 import com.episkipoe.dragon.commands.Command;
 import com.episkipoe.dragon.commands.CommandPage;
-import com.episkipoe.dragon.common.FileUtils;
 import com.episkipoe.dragon.lairs.LairList;
 import com.episkipoe.dragon.pages.PageManager;
 
@@ -29,13 +26,15 @@ public class Player {
 	public Player() {
 		loadMainActions();
 	}
-	
+
+	/*
 	public void savePlayer() throws Exception {
 		File root = Environment.getExternalStorageDirectory(); 
 		File dragonRoot = new File(root, "dragon");
 		File playerFile = new File(dragonRoot, playerAgent.getName());
 		FileUtils.writeToFile(playerFile, playerAgent);
 	}
+	*/
 	
 	private class ListNeighbors extends CommandPage {
 		protected ListNeighbors(Player player) {

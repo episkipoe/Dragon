@@ -3,23 +3,21 @@ package com.episkipoe.dragon.rooms;
 import android.view.View;
 
 import com.episkipoe.dragon.agents.Agent;
-import com.episkipoe.dragon.commands.Command;
+import com.episkipoe.dragon.commerce.CommerceCommand;
+import com.episkipoe.dragon.events.EventScheduler;
 import com.episkipoe.dragon.player.Player;
 import com.episkipoe.dragon.treasure.Cost;
 
-public class HireCommand extends Command {
-	Room room;
+public class HireCommand extends CommerceCommand {
 	Agent agent;
-	Cost cost;
 	public HireCommand(Player player, Room room, Agent agent, Cost cost) {
-		super(player);
-		this.room = room;
-		this.cost = cost;
+		super(player, room, cost);
+		this.agent = agent;
 	}
 
 	public void onClick(View v) {
 		HireEvent event = new HireEvent(player, room, agent, cost, true);
-		event.run();
+		EventScheduler.schedule(event, cost.getWaitTime());
 	}
 
 	@Override

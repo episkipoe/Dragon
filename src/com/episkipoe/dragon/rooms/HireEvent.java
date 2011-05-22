@@ -1,26 +1,22 @@
 package com.episkipoe.dragon.rooms;
 
 import com.episkipoe.dragon.agents.Agent;
-import com.episkipoe.dragon.events.Event;
+import com.episkipoe.dragon.commerce.CommerceEvent;
 import com.episkipoe.dragon.player.Player;
 import com.episkipoe.dragon.treasure.Cost;
 
-public class HireEvent extends Event {
-	Room room;
+public class HireEvent extends CommerceEvent {
 	Agent agent;
-	Cost cost;
 	boolean notify;
 	public HireEvent(Player player, Room room, Agent agent, Cost cost, boolean notify) {
-		super(player);
-		this.room = room;
+		super(player, room, cost, notify);
 		this.agent = agent;
-		this.cost = cost;
 		this.notify = notify;
 	}
 
 	@Override
 	public void run() {
-		if(!room.getLair().subtractCost(cost, notify)) {
+		if(!subtractCost()) {
 			return;
 		}
 		room.hireAgent(agent);

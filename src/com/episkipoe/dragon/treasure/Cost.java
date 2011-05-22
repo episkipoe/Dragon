@@ -20,18 +20,10 @@ public class Cost {
 	public TreasureList getRequirements() {
 		return requirements;
 	}
-	public boolean meetsRequirements(TreasureList treasures) {
-		if(requirements==null) return true;
-		for(Treasure t : requirements.getTreasures()) {
-			if(!treasures.hasTreasure(t.getType())) return false;
-			Treasure has = treasures.getTreasure(t.getType());
-			if(has.qty < t.qty) return false;
-		}
-		return true;
-	}
 	public int getWaitTime() { return seconds; }
+	public void increaseWaitTime(int seconds) { this.seconds += seconds; }
 	public String toString() {
-		if(requirements == null && seconds <=0) {
+		if(isEmpty() && seconds <=0) {
 			return "Free";
 		}
 		String cost = "";
@@ -40,5 +32,8 @@ public class Cost {
 		}
 		if(seconds>0) cost += seconds + " seconds ";
 		return cost;
+	}
+	public boolean isEmpty() { 
+		return (requirements == null || requirements.numTreasures()==0);
 	}
 }

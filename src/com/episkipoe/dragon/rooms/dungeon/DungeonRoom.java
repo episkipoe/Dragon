@@ -9,7 +9,7 @@ import com.episkipoe.dragon.rooms.Room;
 
 public class DungeonRoom extends Room {
 
-	protected DungeonRoom(Player player, Lair lair) {
+	public DungeonRoom(Player player, Lair lair) {
 		super(player, lair);
 		prisoners = new ArrayList<Prisoner>();
 	}

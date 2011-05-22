@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 
 public abstract class Command implements View.OnClickListener {
 	protected Player player;
+	protected boolean enabled=true;
 	public Command(Player player) {
 		this.player = player;
 	} 
@@ -28,6 +29,7 @@ public abstract class Command implements View.OnClickListener {
 		Button btn = new Button(player.getActivity());
 		btn.setText(getCommandName());
 		btn.setOnClickListener(this);
+		btn.setEnabled(enabled);
 		return btn;
 	}
 	
