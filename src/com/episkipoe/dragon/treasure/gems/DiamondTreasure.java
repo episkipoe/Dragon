@@ -1,7 +1,7 @@
-package com.episkipoe.dragon.rooms.treasure.gems;
+package com.episkipoe.dragon.treasure.gems;
 
 import com.episkipoe.dragon.player.Player;
-import com.episkipoe.dragon.rooms.treasure.Treasure;
+import com.episkipoe.dragon.treasure.Treasure;
 
 public class DiamondTreasure extends Treasure {
 

@@ -5,6 +5,7 @@ import com.episkipoe.dragon.player.Player;
 import android.widget.Button;
 import android.widget.TextView;
 import android.view.View;
+import android.view.ViewGroup;
 
 public abstract class Command implements View.OnClickListener {
 	protected Player player;
@@ -23,14 +24,14 @@ public abstract class Command implements View.OnClickListener {
 	 */
 	public String getDescription() { return null; }
 
-	final public Button getButton() { 
+	final private Button getButton() { 
 		Button btn = new Button(player.getActivity());
 		btn.setText(getCommandName());
 		btn.setOnClickListener(this);
 		return btn;
 	}
 	
-	final public TextView getDescriptionLabel() {
+	final private TextView getDescriptionLabel() {
 		String description = getDescription();
 		if(description==null) return null;
 		TextView lbl = new TextView(player.getActivity());
@@ -38,4 +39,9 @@ public abstract class Command implements View.OnClickListener {
 		return lbl;
 	}
 	
+	final public void addToLayout(ViewGroup layout) {
+		layout.addView(getButton());
+		TextView lbl = getDescriptionLabel();
+		if(lbl != null) layout.addView(lbl);
+	}
 }

@@ -1,7 +1,8 @@
-package com.episkipoe.dragon.rooms.treasure;
+package com.episkipoe.dragon.treasure;
 
 import android.view.ViewGroup;
 import android.widget.TableLayout;
+import android.widget.TableLayout.LayoutParams;
 import android.widget.TableRow;
 import android.widget.TextView;
 
@@ -25,12 +26,13 @@ class TreasureDisplay extends CommandPage {
 			layout.addView(noneLbl);
 			return;
 		}
+		LayoutParams params = new TableLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);	
 		
 		TableLayout table = new TableLayout(player.getActivity());
 		layout.addView(table);
 		
 		TableRow header = new TableRow(player.getActivity());
-		table.addView(header);
+		table.addView(header, params);
 		
 		TextView typeLbl = new TextView(player.getActivity());
 		typeLbl.setText("Treasure");
@@ -46,7 +48,7 @@ class TreasureDisplay extends CommandPage {
 		
 		for(Treasure t: treasures.getTreasures()) {
 			TableRow row = new TableRow(player.getActivity());
-			table.addView(row);
+			table.addView(row, params);
 			
 			TextView type = new TextView(player.getActivity());
 			typeLbl.setText(t.getType());

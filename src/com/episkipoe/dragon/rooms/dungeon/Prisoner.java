@@ -1,4 +1,4 @@
-package com.episkipoe.dragon.rooms.prison;
+package com.episkipoe.dragon.rooms.dungeon;
 
 import java.io.Serializable;
 

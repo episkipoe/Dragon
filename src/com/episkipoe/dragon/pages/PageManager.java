@@ -22,9 +22,9 @@ public class PageManager {
 
 	int pageDepth=0;
 	public void setView(View view) {
-		//ScrollView interferes with left swipe.
 		ScrollView scrollView = new ScrollView(player.getActivity());
 		flipper = new ViewFlipper(player.getActivity());
+		flipper.setMeasureAllChildren(false);
 		scrollView.addView(flipper);
 		pageDepth=0;
 		flipper.addView(view);

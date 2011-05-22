@@ -33,7 +33,7 @@ public abstract class CommandPage extends Command {
 		
 		if(commandList != null) {
 			for(Command cmd : commandList) {
-				layout.addView(cmd.getButton());
+				cmd.addToLayout(layout);
 			}
 		}
 		layout.addView(player.getPageManager().getBackButton());

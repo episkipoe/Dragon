@@ -1,7 +1,6 @@
-package com.episkipoe.dragon.rooms.treasure;
+package com.episkipoe.dragon.treasure;
 
 import java.util.ArrayList;
-import java.util.Collection;
 
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -32,10 +31,12 @@ public class TreasureRoom extends Room {
 	
 	protected void prepareCommands() {
 		commandList = new ArrayList<Command>();
-		Collection<Command> lairOptions = lair.treasureRoom();
-		if(lairOptions != null) commandList.addAll(lairOptions);
-		TreasureDisplay display = new TreasureDisplay(player, getTreasureList());
-		commandList.add(display);
+		commandList.add(new TreasureDisplay(player, getTreasureList()));
+		switch(lair.getOwner().getRelationship()) {
+		case NEUTRAL: case ENEMY:
+			commandList.add(new RaidCommand(player, lair, lair.getOwnerAndType()));
+			break;
+		}
 	}
 
 }

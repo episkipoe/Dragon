@@ -3,16 +3,27 @@ package com.episkipoe.dragon.lairs;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.episkipoe.dragon.agents.Agent;
+import com.episkipoe.dragon.agents.Agent.Relationship;
 import com.episkipoe.dragon.commands.Command;
 import com.episkipoe.dragon.commands.CommandPage;
 import com.episkipoe.dragon.player.Player;
 
 public class LairList extends CommandPage {
-	public LairList(Player player) {
+	Agent owner;
+	public LairList(Player player, Agent owner) {
 		super(player);
+		this.owner = owner;
 	}
 	
-	public String getCommandName() { return "Manage Lairs"; }
+	public String getCommandName() { 
+		if(owner.getRelationship()==Relationship.PLAYER) {
+			return "Visit your lairs"; 
+		} else {
+			return "Visit " + owner.getName(); 
+		}
+	}
+	public boolean isMine() { return (owner.getRelationship() == Relationship.PLAYER); }
 	
 	List<Lair> lairs = null;
 	public void addLair(Lair l) { getLairs().add(l); }
@@ -31,7 +42,7 @@ public class LairList extends CommandPage {
 		commandList =new ArrayList<Command>();
 		if(lairs==null) return;
 		for(Lair l : lairs) commandList.add(l);
-		commandList.add(getLairBuilder());
+		if(isMine()) commandList.add(getLairBuilder());
 	}
 	
 }

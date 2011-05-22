@@ -1,4 +1,4 @@
-package com.episkipoe.dragon.rooms.treasure;
+package com.episkipoe.dragon.treasure;
 
 import java.io.Serializable;
 
@@ -10,5 +10,9 @@ public abstract class Treasure implements Serializable {
 	public int qty;
 	abstract public String getType(); 
 	abstract public int getValue(Player player);
+	
+	public String toString() {
+		return qty + " " + getType();
+	}
 }
 

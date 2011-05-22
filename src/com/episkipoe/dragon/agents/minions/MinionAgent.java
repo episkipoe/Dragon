@@ -2,8 +2,6 @@ package com.episkipoe.dragon.agents.minions;
 
 import com.episkipoe.dragon.agents.Agent;
 
-public class MinionAgent extends Agent {
-
-	@Override
-	public String getType() { return "Minion"; }
+public abstract class MinionAgent extends Agent {
+	private static final long serialVersionUID = 113378305384353179L;
 }

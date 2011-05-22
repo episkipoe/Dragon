@@ -1,11 +1,15 @@
-package com.episkipoe.dragon.rooms.treasure;
+package com.episkipoe.dragon.treasure;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
 import com.episkipoe.dragon.player.Player;
+
+import org.apache.commons.lang.StringUtils;
 
 public class TreasureList implements Serializable {
 	private static final long serialVersionUID = 2490515336611342772L;
@@ -41,5 +45,11 @@ public class TreasureList implements Serializable {
 	}
 
 	public Collection<Treasure> getTreasures () { return treasures.values(); }
+	
+	public String toString () {
+		List<String> descriptions = new ArrayList<String>();
+		for(Treasure t : getTreasures()) descriptions.add(t.toString());
+		return StringUtils.join(descriptions, ", ");
+	}
 	
 }
