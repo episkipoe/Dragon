@@ -1,8 +1,8 @@
 package com.episkipoe.dragon.rooms;
 
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.Map;
-import java.util.TreeMap;
 
 import com.episkipoe.dragon.player.Player;
 
@@ -10,28 +10,16 @@ public class RoomSet {
 	Player player;
 	public RoomSet(Player player) {
 		this.player = player;
-		rooms = new TreeMap<String,Room>();
+		rooms = new HashMap<Class<? extends Room>,Room>();
 	}
 	
 	public String getName() { return "View Rooms"; }
 	
-	private Map<String,Room> rooms;
-	public void add(Room r) { rooms.put(r.getCommandName(), r); }
-	public void setRoom(String type, Room r) { rooms.put(type,r); }
-	public Room getRoom(String type) { return rooms.get(type); }
+	private Map<Class<? extends Room>,Room> rooms;
+	public void add(Room r) { rooms.put(r.getClass(), r); }
+	public Room get(Class<? extends Room> c) { return rooms.get(c); }
+	public  boolean has(Class<? extends Room> c) { return rooms.containsKey(c); }
 	public int numRooms() { return rooms.size(); }
-	public Room getRoom(Class<? extends Room> c) { 
-		for(Room r : getRooms()) {
-			if(r.getClass() == c) {
-				System.out.println("match");
-				return r;
-			}
-		}	
-		return null;
-	}
-	public  boolean hasRoom(Class<? extends Room> c) {
-		return (getRoom(c) != null);
-	}
 
 	public Collection<Room> getRooms () { return rooms.values(); }
 	

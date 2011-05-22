@@ -7,6 +7,7 @@ import android.app.Activity;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.episkipoe.dragon.agents.Agent;
 import com.episkipoe.dragon.agents.AgentDisplay;
@@ -74,6 +75,12 @@ public class Player {
 		return properties;
 	}
 	
+	PlayerSettings settings=null;
+	public PlayerSettings getSettings() {
+		if(settings==null) settings = new PlayerSettings();
+		return settings;
+	}
+	
 	LairList lairs=null;
 	public LairList getLairList() { 
 		if(lairs==null) lairs = new LairList(this, playerAgent);
@@ -112,7 +119,10 @@ public class Player {
 		return false;
 	}
 
-
+	public void popupNotify(String text) {
+		Toast toast = Toast.makeText(getActivity(), text, getSettings().toastDuration);	
+		toast.show();
+	}
 
 	
 }

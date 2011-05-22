@@ -3,9 +3,10 @@ package com.episkipoe.dragon.treasure;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.TreeMap;
 
 import com.episkipoe.dragon.player.Player;
 
@@ -14,28 +15,82 @@ import org.apache.commons.lang.StringUtils;
 public class TreasureList implements Serializable {
 	private static final long serialVersionUID = 2490515336611342772L;
 	
-	Player player;
+	protected Player player;
 	public TreasureList(Player player) {
 		this.player = player;
-		treasures = new TreeMap<String,Treasure>();
+		treasures = new HashMap<Class<? extends Treasure>,Treasure>();
+	}
+	public TreasureList(TreasureList orig) {
+		this.player = orig.player;
+		treasures = new HashMap<Class<? extends Treasure>,Treasure>();
+		add(orig);
 	}
 	
 	public String getName() { return "View Treasures"; }
 	
-	private Map<String,Treasure> treasures;
+	private Map<Class<? extends Treasure>,Treasure> treasures;
 	public void add(Treasure t) { 
-		String type = t.getType();
-		Treasure cur = getTreasure(type);
+		Treasure cur = get(t.getClass());
 		if(cur==null) {
-			setTreasure(type, t);
+			cur = t.clone();
+			set(cur);
 		}  else {
 			cur.qty += t.qty;
 		}
 	}
-	public void setTreasure(String type, Treasure t) { treasures.put(type,t); }
-	public void removeTreasure(String type) { treasures.remove(getTreasure(type)); }
-	public boolean hasTreasure(String type) { return treasures.containsKey(type); }
-	public Treasure getTreasure(String type) { return treasures.get(type); }
+	public void add(TreasureList treasureList) {
+		for(Treasure t : treasureList.getTreasures()) {
+			add(t);
+		}
+	}
+	/**
+	 * Removes the quantity of treasure from the list
+	 * NOTE:  this can result in debt (negative quantity in the list)
+	 * @param t
+	 */
+	public void subtract(Treasure t) {
+		Treasure cur = get(t.getClass());
+		if(cur!=null) {
+			cur.qty -= t.qty;
+		}
+	}
+	public void subtract(TreasureList treasureList) {
+		for(Treasure t : treasureList.getTreasures()) {
+			subtract(t);
+		}
+	}
+	/**
+	 * Subtracts treasure from both the list and the cost and does not result in negative values in this list
+	 * 
+	*/
+	public void subtractCost(TreasureList cost) {
+		for(Treasure t : cost.getTreasures()) {
+			Treasure cur = get(t.getClass());
+			if(cur==null) continue;
+			int qtyToSubtract=Math.min(cur.qty, t.qty);
+			cur.qty -= qtyToSubtract;
+			t.qty -= qtyToSubtract;
+		}
+	}
+	private void set(Treasure t) { treasures.put(t.getClass(),t); }
+	public void remove(Class<? extends Treasure> type) { treasures.remove(get(type)); }
+	public void removeEmpty() {
+		for(Iterator<Treasure> iter = treasures.values().iterator() ; iter.hasNext(); ) {
+			Treasure t = iter.next();
+			if(t.qty <= 0) iter.remove();
+		}
+	}
+
+	public boolean has(Class<? extends Treasure> type) { return treasures.containsKey(type); }
+	public boolean has(TreasureList treasureList) {
+		for(Treasure t : treasureList.getTreasures()) {
+			Treasure cur = get(t.getClass());
+			if(cur==null) return false;	
+			if(cur.qty < t.qty) return false;
+		}
+		return true;
+	}
+	public Treasure get(Class<? extends Treasure> type) { return treasures.get(type); }
 	public int numTreasures() { return treasures.size(); }
 	
 	public int totalValue() { 
@@ -44,6 +99,13 @@ public class TreasureList implements Serializable {
 		return value;
 	}
 
+	public boolean isEmpty() {
+		if(numTreasures() == 0) return true;
+		for(Treasure t: getTreasures()) {
+			if(t.qty > 0) return false;
+		}
+		return true;
+	}
 	public Collection<Treasure> getTreasures () { return treasures.values(); }
 	
 	public String toString () {

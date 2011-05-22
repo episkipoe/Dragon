@@ -37,6 +37,7 @@ public abstract class CommandPage extends Command {
 			}
 		}
 		layout.addView(player.getPageManager().getBackButton());
+		layout.setTag(this);
 		
 		return layout;
 	}

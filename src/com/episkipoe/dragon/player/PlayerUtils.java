@@ -1,8 +1,8 @@
 package com.episkipoe.dragon.player;
 
 import com.episkipoe.dragon.agents.Agent;
+import com.episkipoe.dragon.agents.DragonAgent;
 import com.episkipoe.dragon.agents.Agent.Relationship;
-import com.episkipoe.dragon.agents.dragons.DragonAgent;
 import com.episkipoe.dragon.agents.royalty.KingAgent;
 import com.episkipoe.dragon.lairs.CastleLair;
 import com.episkipoe.dragon.lairs.Lair;
@@ -16,6 +16,9 @@ public class PlayerUtils {
 	public static void initializePlayer(Player player, int nearbyKingdoms) {
 		Lair mountainLair = getMountainLair(player, player.getPlayerAgent(), 0);
 		player.getLairList().addLair(mountainLair);
+		
+		Lair castleLair = getCastleLair(player, player.getPlayerAgent(), 0);
+		player.getLairList().addLair(castleLair);
 		
 		for(int i=0 ; i<nearbyKingdoms ; i++) {
 			Agent king = getKing(player);

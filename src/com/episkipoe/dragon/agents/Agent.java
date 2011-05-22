@@ -3,8 +3,8 @@ package com.episkipoe.dragon.agents;
 import java.io.Serializable;
 
 import com.episkipoe.dragon.agents.skills.SkillSet;
+import com.episkipoe.dragon.dungeon.Prisoner;
 import com.episkipoe.dragon.rooms.Room;
-import com.episkipoe.dragon.rooms.dungeon.Prisoner;
 
 
 public abstract class Agent implements Serializable {

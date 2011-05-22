@@ -6,8 +6,11 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.episkipoe.dragon.commands.Command;
+import com.episkipoe.dragon.commerce.Cost;
 import com.episkipoe.dragon.lairs.Lair;
 import com.episkipoe.dragon.player.Player;
+import com.episkipoe.dragon.production.building.IronTreasure;
+import com.episkipoe.dragon.rooms.BuildRoomCommand;
 import com.episkipoe.dragon.rooms.Room;
 
 public class TreasureRoom extends Room {
@@ -22,7 +25,7 @@ public class TreasureRoom extends Room {
 		return treasures;
 	}
 	
-	public String getCommandName() { return "Treasure Room"; }
+	public String getCommandName() { return "Store Room"; }
 	
 	protected void addHeader(ViewGroup layout) { 
 		TextView lbl = new TextView(player.getActivity());
@@ -38,5 +41,12 @@ public class TreasureRoom extends Room {
 			break;
 		}
 	}
-
+	
+	public static Command getBuildCommand(Player player, Lair lair) {
+		TreasureRoom room = new TreasureRoom(player, lair);
+		TreasureList tl = new TreasureList(player);
+		tl.add(new IronTreasure());
+		Cost cost = new Cost(tl, 4);
+		return new BuildRoomCommand(player, room, cost);
+	}
 }

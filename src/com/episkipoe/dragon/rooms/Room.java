@@ -24,5 +24,6 @@ public abstract class Room extends CommandPage {
 	}
 	
 	public void hireAgent(Agent agent) { }
+	
 }
 

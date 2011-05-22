@@ -1,6 +1,5 @@
-package com.episkipoe.dragon.agents.knights;
+package com.episkipoe.dragon.agents;
 
-import com.episkipoe.dragon.agents.Agent;
 
 public class KnightAgent extends Agent {
 	private static final long serialVersionUID = -612795873276084742L;

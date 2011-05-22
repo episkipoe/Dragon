@@ -4,9 +4,9 @@ import android.view.View;
 
 import com.episkipoe.dragon.agents.Agent;
 import com.episkipoe.dragon.commerce.CommerceCommand;
+import com.episkipoe.dragon.commerce.Cost;
 import com.episkipoe.dragon.events.EventScheduler;
 import com.episkipoe.dragon.player.Player;
-import com.episkipoe.dragon.treasure.Cost;
 
 public class HireCommand extends CommerceCommand {
 	Agent agent;

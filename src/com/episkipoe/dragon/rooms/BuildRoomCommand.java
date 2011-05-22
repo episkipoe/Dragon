@@ -3,9 +3,9 @@ package com.episkipoe.dragon.rooms;
 import android.view.View;
 
 import com.episkipoe.dragon.commerce.CommerceCommand;
+import com.episkipoe.dragon.commerce.Cost;
 import com.episkipoe.dragon.events.EventScheduler;
 import com.episkipoe.dragon.player.Player;
-import com.episkipoe.dragon.treasure.Cost;
 
 public class BuildRoomCommand extends CommerceCommand {
 	public BuildRoomCommand(Player player, Room room, Cost cost) {
@@ -15,9 +15,15 @@ public class BuildRoomCommand extends CommerceCommand {
 	boolean scheduled=false;
 	public void onClick(View v) {
 		BuildRoomEvent event = new BuildRoomEvent(player, room, cost, true); 
-		EventScheduler.schedule(event, cost.getWaitTime());
+		if(v==null) {
+			event.run();
+		} else {
+			EventScheduler.schedule(event, cost.getWaitTime());
+		}
 		scheduled=true;
 		enabled=false;
+		player.popupNotify("Build in progress");
+		player.getPageManager().refresh();
 	}
 
 	@Override

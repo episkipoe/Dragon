@@ -1,5 +1,6 @@
 package com.episkipoe.dragon.commands;
 
+import com.episkipoe.dragon.events.Event;
 import com.episkipoe.dragon.player.Player;
 
 import android.widget.Button;
@@ -8,7 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 public abstract class Command implements View.OnClickListener {
-	protected Player player;
+	public Player player;
 	protected boolean enabled=true;
 	public Command(Player player) {
 		this.player = player;
@@ -45,5 +46,19 @@ public abstract class Command implements View.OnClickListener {
 		layout.addView(getButton());
 		TextView lbl = getDescriptionLabel();
 		if(lbl != null) layout.addView(lbl);
+	}
+	
+	protected class ReEnable extends Event {
+		Command cmd;
+		public ReEnable(Player player, Command cmd) {
+			super(player);
+			this.cmd = cmd;
+		}
+		@Override
+		public void run() {
+			cmd.enabled = true;
+			player.getPageManager().refresh();
+		} 
+		
 	}
 }

@@ -1,4 +1,4 @@
-package com.episkipoe.dragon.treasure.building;
+package com.episkipoe.dragon.production.building;
 
 import com.episkipoe.dragon.player.Player;
 import com.episkipoe.dragon.treasure.Treasure;
@@ -6,7 +6,8 @@ import com.episkipoe.dragon.treasure.Treasure;
 public class IronTreasure extends Treasure {
 	private static final long serialVersionUID = -7254920043982097635L;
 
-	public IronTreasure() { }
+	public IronTreasure() { qty= 1; }
+	public IronTreasure(int qty) { this.qty= qty; }
 
 	@Override
 	public String getType() { return "Iron" ; }

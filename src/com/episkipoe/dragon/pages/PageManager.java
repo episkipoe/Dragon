@@ -1,7 +1,5 @@
 package com.episkipoe.dragon.pages;
 
-import com.episkipoe.dragon.player.Player;
-
 import android.view.GestureDetector;
 import android.view.GestureDetector.SimpleOnGestureListener;
 import android.view.MotionEvent;
@@ -12,6 +10,9 @@ import android.view.animation.TranslateAnimation;
 import android.widget.Button;
 import android.widget.ScrollView;
 import android.widget.ViewFlipper;
+
+import com.episkipoe.dragon.commands.CommandPage;
+import com.episkipoe.dragon.player.Player;
 
 public class PageManager {
 	Player player = null;
@@ -29,6 +30,19 @@ public class PageManager {
 		pageDepth=0;
 		flipper.addView(view);
 		player.getActivity().setContentView(scrollView);	
+	}
+	
+	public void refresh() {
+		if(flipper==null) return;
+		View currentView = flipper.getChildAt(pageDepth);
+		if(currentView==null) return;
+		CommandPage page = (CommandPage) currentView.getTag();
+		if(page==null) return;
+		flipper.setInAnimation(null);
+		flipper.setOutAnimation(null);
+		flipper.removeViewAt(pageDepth);
+		flipper.addView(page.getPage());
+		flipper.showNext();	
 	}
 
 	public void next(View view) {
