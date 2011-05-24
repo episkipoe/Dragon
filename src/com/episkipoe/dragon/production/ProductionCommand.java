@@ -2,16 +2,15 @@ package com.episkipoe.dragon.production;
 
 import android.view.View;
 
+import com.episkipoe.dragon.Main;
 import com.episkipoe.dragon.commands.Command;
 import com.episkipoe.dragon.lairs.Lair;
 import com.episkipoe.dragon.lairs.LairList;
-import com.episkipoe.dragon.player.Player;
 
 public abstract class ProductionCommand extends Command {
 	private ProductionRoom room;
 	private Product product;
-	public ProductionCommand(Player player, ProductionRoom room, Product product) {
-		super(player);
+	public ProductionCommand(ProductionRoom room, Product product) {
 		this.room = room;
 		this.product = product;
 	}
@@ -20,11 +19,11 @@ public abstract class ProductionCommand extends Command {
 		Lair lair = room.getLair();
 		LairList kingdom = lair.getKingdom();
 		room.getProductionList().scheduleProduction(kingdom, lair, product);
-		player.popupNotify(getScheduleMessage());
-		enabled = false;
-		//EventScheduler.schedule(new ReEnable(player, this), 5);
+		Main.player.popupNotify(getScheduleMessage());
+		room.productionInProgress=true;
+		setEnabled(false);
+		//TODO schedule re-enabling of the command
 	}
-	
 
 	
 	public String getScheduleMessage() { return "Production has begun"; }

@@ -8,14 +8,12 @@ import com.episkipoe.dragon.treasure.TreasureRoom;
 
 public class CommerceUtils {
 	public static boolean canAfford(LairList kingdom, Cost cost) {
-		if(cost.getRequirements(kingdom.player).isEmpty()) return true;
-		System.out.println("before:" + cost.getRequirements(kingdom.player).totalValue());
-		TreasureList needToHave = new TreasureList(cost.getRequirements(kingdom.player));
+		if(cost.getRequirements().isEmpty()) return true;
+		TreasureList needToHave = new TreasureList(cost.getRequirements());
 		if(needToHave.isEmpty()) return true;
 		for (Room r : kingdom.getAllRoomsOfType(TreasureRoom.class)) {
 			TreasureRoom store = (TreasureRoom) r;
 			needToHave.subtract(store.getTreasureList());
-			System.out.println("\tafter:" + cost.getRequirements(kingdom.player).totalValue());
 			if(needToHave.isEmpty()) return true;
 		}
 		return false;
@@ -25,15 +23,15 @@ public class CommerceUtils {
 	}
 	
 	public static int transferTime(Lair lair, Cost cost) {
-		LairList kingdom = lair.getKingdom();
 		TreasureList nearest = getNearestStore(lair);
-		if(nearest.has(cost.getRequirements(kingdom.player))) return 0;
+		if(nearest==null) return 0;
+		if(nearest.has(cost.getRequirements())) return 0;
 		return 10;
 	}
 	public static boolean subtractCost(Lair lair, Cost cost) {
 		LairList kingdom = lair.getKingdom();
-		if(cost.getRequirements(kingdom.player).isEmpty()) return true;
-		TreasureList needToHave = new TreasureList(cost.getRequirements(kingdom.player));
+		if(cost.getRequirements().isEmpty()) return true;
+		TreasureList needToHave = new TreasureList(cost.getRequirements());
 		TreasureList nearestTreasure = getNearestStore(lair);
 		nearestTreasure.subtractCost(needToHave);
 		if(needToHave.isEmpty()) return true;

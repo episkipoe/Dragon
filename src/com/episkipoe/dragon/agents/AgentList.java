@@ -4,12 +4,8 @@ import java.util.Collection;
 import java.util.Map;
 import java.util.TreeMap;
 
-import com.episkipoe.dragon.player.Player;
-
 public class AgentList {
-	Player player;
-	public AgentList(Player player) {
-		this.player = player;
+	public AgentList() {
 		agents = new TreeMap<String,Agent>();
 	}
 	

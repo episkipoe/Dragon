@@ -1,6 +1,5 @@
 package com.episkipoe.dragon.commerce;
 
-import com.episkipoe.dragon.player.Player;
 import com.episkipoe.dragon.treasure.TreasureList;
 
 public class Cost {
@@ -28,8 +27,8 @@ public class Cost {
 	public boolean canSubstituteCoin() {  return (coinSubstitute>0); }
 
 	public void setRequirements(TreasureList requirements) { this.requirements = requirements; }
-	public TreasureList getRequirements(Player player) { 
-		if(requirements==null) requirements = new TreasureList(player);
+	public TreasureList getRequirements() { 
+		if(requirements==null) requirements = new TreasureList();
 		return requirements; 
 	}
 

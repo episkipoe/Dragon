@@ -1,10 +1,8 @@
 package com.episkipoe.dragon.agents.skills;
 
 import java.util.Collection;
-import java.util.Map;
 import java.util.HashMap;
-
-import com.episkipoe.dragon.agents.skills.Skill;
+import java.util.Map;
 
 public class SkillSet {
 	public SkillSet() {
@@ -44,6 +42,8 @@ public class SkillSet {
 		total/=numSkills();
 		return total;
 	}
+	
+	//TODO:  items that modify skills
 	public int totalModifiers() { return 0; }
 
 	public Collection<Skill> getSkills () { return skills.values(); }	

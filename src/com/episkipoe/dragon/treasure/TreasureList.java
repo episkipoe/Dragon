@@ -8,20 +8,17 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import com.episkipoe.dragon.player.Player;
-
 import org.apache.commons.lang.StringUtils;
+
+import com.episkipoe.dragon.agents.Agent;
 
 public class TreasureList implements Serializable {
 	private static final long serialVersionUID = 2490515336611342772L;
 	
-	protected Player player;
-	public TreasureList(Player player) {
-		this.player = player;
+	public TreasureList() {
 		treasures = new HashMap<Class<? extends Treasure>,Treasure>();
 	}
 	public TreasureList(TreasureList orig) {
-		this.player = orig.player;
 		treasures = new HashMap<Class<? extends Treasure>,Treasure>();
 		add(orig);
 	}
@@ -93,9 +90,9 @@ public class TreasureList implements Serializable {
 	public Treasure get(Class<? extends Treasure> type) { return treasures.get(type); }
 	public int numTreasures() { return treasures.size(); }
 	
-	public int totalValue() { 
+	public int totalValue(Agent agent) { 
 		int value=0;
-		for (Treasure t: getTreasures()) value += t.getValue(player);
+		for (Treasure t: getTreasures()) value += t.getValue(agent);
 		return value;
 	}
 

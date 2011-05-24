@@ -3,13 +3,12 @@ package com.episkipoe.dragon.rooms;
 import com.episkipoe.dragon.agents.Agent;
 import com.episkipoe.dragon.commerce.CommerceEvent;
 import com.episkipoe.dragon.commerce.Cost;
-import com.episkipoe.dragon.player.Player;
 
 public class HireEvent extends CommerceEvent {
 	Agent agent;
 	boolean notify;
-	public HireEvent(Player player, Room room, Agent agent, Cost cost, boolean notify) {
-		super(player, room, cost, notify);
+	public HireEvent(Room room, Agent agent, Cost cost, boolean notify) {
+		super(room, cost, notify);
 		this.agent = agent;
 		this.notify = notify;
 	}

@@ -3,8 +3,8 @@ package com.episkipoe.dragon.test.production;
 import com.episkipoe.dragon.Main;
 import com.episkipoe.dragon.agents.Agent;
 import com.episkipoe.dragon.commerce.CommerceUtils;
-import com.episkipoe.dragon.lairs.CastleLair;
 import com.episkipoe.dragon.lairs.LairList;
+import com.episkipoe.dragon.lairs.royal.CastleLair;
 import com.episkipoe.dragon.player.Player;
 import com.episkipoe.dragon.production.ProductionCommand;
 import com.episkipoe.dragon.production.food.AleTreasure;
@@ -21,21 +21,24 @@ public class FoodTest extends android.test.ActivityInstrumentationTestCase2<Main
 		super("com.episkipoe.dragon", Main.class);
 	}
 	
-	public void testBrewing() {
+	public void testBrewing() throws Exception {
 		Player player = new Player(this.getActivity());
 		Agent playerAgent = player.getPlayerAgent();
 		LairList kingdom = player.getLairList();
-		CastleLair castle = new CastleLair(player, playerAgent);
+		CastleLair castle = new CastleLair(playerAgent);
 		kingdom.addLair(castle);
-		TreasureRoom storeRoom = new TreasureRoom(player, castle);
+		TreasureRoom storeRoom = new TreasureRoom(castle);
 		RoomSet rooms = castle.getRoomSet();
 		rooms.add(storeRoom);
 		TreasureList store = CommerceUtils.getNearestStore(castle);
 		assertTrue(store!=null);
 		assertFalse(store.has(GrainTreasure.class));
-		BuildRoomCommand buildFarm = (BuildRoomCommand) FarmRoom.getBuildCommand(player, castle);
+		assertFalse(castle.getRoomSet().buildQueued(FarmRoom.class));
+		FarmRoom f = new FarmRoom();
+		BuildRoomCommand buildFarm = (BuildRoomCommand) f.getBuildCommand(castle);
 		assertTrue(buildFarm != null);
 		buildFarm.onClick(null);
+		assertTrue(castle.getRoomSet().buildQueued(FarmRoom.class));
 		FarmRoom farm = (FarmRoom) rooms.get(FarmRoom.class);
 		assertTrue(farm != null);
 		ProductionCommand farmGrain = farm.getProductionCommands().get(0);
@@ -47,7 +50,8 @@ public class FoodTest extends android.test.ActivityInstrumentationTestCase2<Main
 		assertTrue(store.has(GrainTreasure.class));
 		assertTrue(store.get(GrainTreasure.class).qty == 2);
 		assertFalse(store.has(AleTreasure.class));
-		BuildRoomCommand buildBrewery = (BuildRoomCommand) BreweryRoom.getBuildCommand(player, castle);
+		BreweryRoom b = new BreweryRoom();
+		BuildRoomCommand buildBrewery = (BuildRoomCommand) b.getBuildCommand(castle);
 		assertTrue(buildBrewery != null);
 		buildBrewery.onClick(null);
 		BreweryRoom brewery = (BreweryRoom) rooms.get(BreweryRoom.class);

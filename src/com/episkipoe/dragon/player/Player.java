@@ -7,6 +7,7 @@ import android.app.Activity;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.episkipoe.dragon.agents.Agent;
@@ -18,10 +19,10 @@ import com.episkipoe.dragon.pages.PageManager;
 
 public class Player {
 	Activity activity=null;
-	public Player(Activity activity) {
+	public Player(Activity activity) throws Exception {
 		this.activity = activity;
 		int nearByKingdoms = 10;
-		PlayerUtils.initializePlayer(this, nearByKingdoms);		
+		PlayerUtils.initializeTestPlayer(this, nearByKingdoms);		
 		loadMainActions();
 	}
 	public Player() {
@@ -38,9 +39,7 @@ public class Player {
 	*/
 	
 	private class ListNeighbors extends CommandPage {
-		protected ListNeighbors(Player player) {
-			super(player);
-		}
+
 		protected void prepareCommands() {
 			commandList =new ArrayList<Command>();
 			List<LairList> kingdoms = getNeighboringKingdoms();
@@ -50,15 +49,15 @@ public class Player {
 			}
 		}
 		@Override
-		public String getCommandName() { return "Visit another kingdom"; }
+		public String getCommandName() { return "Visit another realm"; }
 		
 	}
 	List<CommandPage> mainActions;
 	void loadMainActions() {
 		mainActions = new ArrayList<CommandPage> ();
 		mainActions.add(getLairList());	
-		mainActions.add(new ListNeighbors(this));
-		mainActions.add(new AgentDisplay(this, getPlayerAgent()));
+		mainActions.add(new ListNeighbors());
+		mainActions.add(new AgentDisplay(getPlayerAgent()));
 	}
 	
 	public Activity getActivity() { return activity; }
@@ -83,7 +82,7 @@ public class Player {
 	
 	LairList lairs=null;
 	public LairList getLairList() { 
-		if(lairs==null) lairs = new LairList(this, playerAgent);
+		if(lairs==null) lairs = new LairList(playerAgent);
 		return lairs; 
 	}
 	
@@ -105,10 +104,20 @@ public class Player {
 	public void setMainTitle() {
 		activity.setTitle("Dragon");
 	}
+
+	TextView characterLabel=null;
+	public void setCharacterLabel() {
+		if(characterLabel == null) return ;
+		characterLabel.setText(getPlayerAgent().getDescription());
+	}
+	
 	public View getActions() {
 		setMainTitle();
 		LinearLayout layout = new LinearLayout(activity);
 		layout.setOrientation(LinearLayout.VERTICAL);
+		characterLabel = new TextView(activity);
+		layout.addView(characterLabel);
+		setCharacterLabel();
 		for (CommandPage cmds : mainActions) {
 			cmds.addToLayout(layout);
 		}

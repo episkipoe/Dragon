@@ -1,13 +1,13 @@
 package com.episkipoe.dragon.agents.minions;
 
-
-public class DwarfAgent extends MinionAgent {
+public class ElfAgent extends MinionAgent {
 	private static final long serialVersionUID = -1746273078372318869L;
-	public DwarfAgent(int level) {
+	
+	public ElfAgent(int level) {
 		super(level);
 	}
 
 	@Override
-	public String getType() { return "Dwarf"; }
+	public String getType() { return "Elf"; }
 
 }

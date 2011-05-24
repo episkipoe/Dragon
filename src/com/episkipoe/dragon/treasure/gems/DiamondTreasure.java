@@ -1,6 +1,6 @@
 package com.episkipoe.dragon.treasure.gems;
 
-import com.episkipoe.dragon.player.Player;
+import com.episkipoe.dragon.agents.Agent;
 import com.episkipoe.dragon.treasure.Treasure;
 
 public class DiamondTreasure extends Treasure {
@@ -14,6 +14,6 @@ public class DiamondTreasure extends Treasure {
 	public String getType() { return "Diamond"; }
 
 	@Override
-	public int getValue(Player player) { return (100 * qty); }
+	public int getValue(Agent agent) { return (100 * qty); }
 
 }

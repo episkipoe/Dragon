@@ -5,13 +5,13 @@ import java.util.List;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.TableLayout;
 import android.widget.TextView;
 
-import com.episkipoe.dragon.player.Player;
+import com.episkipoe.dragon.Main;
 
 public abstract class CommandPage extends Command {
-	protected CommandPage(Player player) {
-		super(player);
+	protected CommandPage() {
 	}
 
 	protected List<Command> commandList;
@@ -19,27 +19,40 @@ public abstract class CommandPage extends Command {
 	protected void addHeader(ViewGroup layout) { }
 	
 	final public void onClick(View view) {
-		player.getPageManager().next(getPage());
+		Main.player.getPageManager().next(getPage());
 	}
 
 	final public View getPage() {
 		prepareCommands();
-		LinearLayout layout = new LinearLayout(player.getActivity());
+		
+		LinearLayout layout = new LinearLayout(Main.player.getActivity());
+		layout.setTag(this);
 		layout.setOrientation(LinearLayout.VERTICAL);
-		TextView title = new TextView(player.getActivity());
+		TextView title = new TextView(Main.player.getActivity());
 		title.setText(getCommandName());
 		layout.addView(title);
 		addHeader(layout);
-		
+		table(layout);
+		layout.addView(Main.player.getPageManager().getBackButton());
+		return layout;
+	}
+	
+	final public void table(ViewGroup layout) {
+		TableLayout table = new TableLayout(Main.player.getActivity());
+		layout.addView(table);	
+		if(commandList != null) {
+			for(Command cmd : commandList) {
+				cmd.addToTable(table);
+			}
+		}
+	}
+	
+	final public void linear(ViewGroup layout) {
 		if(commandList != null) {
 			for(Command cmd : commandList) {
 				cmd.addToLayout(layout);
 			}
 		}
-		layout.addView(player.getPageManager().getBackButton());
-		layout.setTag(this);
-		
-		return layout;
 	}
 }
 

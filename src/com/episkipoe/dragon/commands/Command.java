@@ -1,19 +1,19 @@
 package com.episkipoe.dragon.commands;
 
-import com.episkipoe.dragon.events.Event;
-import com.episkipoe.dragon.player.Player;
-
-import android.widget.Button;
-import android.widget.TextView;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.TableLayout;
+import android.widget.TableLayout.LayoutParams;
+import android.widget.TableRow;
+import android.widget.TextView;
+
+import com.episkipoe.dragon.Main;
+import com.episkipoe.dragon.events.Event;
 
 public abstract class Command implements View.OnClickListener {
-	public Player player;
-	protected boolean enabled=true;
-	public Command(Player player) {
-		this.player = player;
-	} 
+	private boolean enabled=true;
+	public Command() { } 
 	
 	/**
 	 * 
@@ -26,18 +26,26 @@ public abstract class Command implements View.OnClickListener {
 	 */
 	public String getDescription() { return null; }
 
+	private Button btn=null;
 	final private Button getButton() { 
-		Button btn = new Button(player.getActivity());
+		btn = new Button(Main.player.getActivity());
 		btn.setText(getCommandName());
 		btn.setOnClickListener(this);
 		btn.setEnabled(enabled);
 		return btn;
 	}
 	
+	final public void setEnabled(boolean enabled) {
+		this.enabled = enabled;
+		if(btn!=null) {
+			btn.setEnabled(enabled);
+		} 
+	}
+	
 	final private TextView getDescriptionLabel() {
 		String description = getDescription();
 		if(description==null) return null;
-		TextView lbl = new TextView(player.getActivity());
+		TextView lbl = new TextView(Main.player.getActivity());
 		lbl.setText(description);
 		return lbl;
 	}
@@ -48,16 +56,26 @@ public abstract class Command implements View.OnClickListener {
 		if(lbl != null) layout.addView(lbl);
 	}
 	
+	final public void addToTable(TableLayout table) {
+		TableRow row = new TableRow(Main.player.getActivity());
+		LayoutParams params = new TableLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);	
+		table.addView(row, params);
+		
+		row.addView(getButton());	
+		
+		TextView lbl = getDescriptionLabel();
+		if(lbl != null) row.addView(lbl);
+	}
+	
 	protected class ReEnable extends Event {
 		Command cmd;
-		public ReEnable(Player player, Command cmd) {
-			super(player);
+		public ReEnable(Command cmd) {
 			this.cmd = cmd;
 		}
 		@Override
 		public void run() {
 			cmd.enabled = true;
-			player.getPageManager().refresh();
+			Main.player.getPageManager().refresh();
 		} 
 		
 	}

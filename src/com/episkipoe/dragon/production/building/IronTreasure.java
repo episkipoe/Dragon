@@ -1,6 +1,6 @@
 package com.episkipoe.dragon.production.building;
 
-import com.episkipoe.dragon.player.Player;
+import com.episkipoe.dragon.agents.Agent;
 import com.episkipoe.dragon.treasure.Treasure;
 
 public class IronTreasure extends Treasure {
@@ -13,6 +13,6 @@ public class IronTreasure extends Treasure {
 	public String getType() { return "Iron" ; }
 
 	@Override
-	public int getValue(Player player) { return (3 * qty); }
+	public int getValue(Agent agent) { return (3 * qty); }
 
 }

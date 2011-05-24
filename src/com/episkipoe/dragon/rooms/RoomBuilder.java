@@ -1,10 +1,10 @@
 package com.episkipoe.dragon.rooms;
 
-import com.episkipoe.dragon.player.Player;
-
 import android.content.Context;
 import android.view.View;
 import android.widget.Button;
+
+import com.episkipoe.dragon.player.Player;
 
 class RoomBuilder implements View.OnClickListener {
 	Player player;

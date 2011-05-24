@@ -23,7 +23,6 @@ public class Product {
 		if(!CommerceUtils.canAfford(kingdom, requires)) return;
 		CommerceUtils.subtractCost(from, requires);
 		TreasureList destination = CommerceUtils.getNearestStore(from);
-		System.out.println("put in " + destination.toString());
 		destination.add(produces);
 	}
 }

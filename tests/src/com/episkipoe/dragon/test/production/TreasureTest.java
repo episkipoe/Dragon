@@ -1,7 +1,6 @@
 package com.episkipoe.dragon.test.production;
 
 import com.episkipoe.dragon.Main;
-import com.episkipoe.dragon.player.Player;
 import com.episkipoe.dragon.production.building.WoodTreasure;
 import com.episkipoe.dragon.production.food.AleTreasure;
 import com.episkipoe.dragon.treasure.TreasureList;
@@ -12,15 +11,13 @@ public class TreasureTest extends android.test.ActivityInstrumentationTestCase2<
 	}
 	
 	public void testTreasure() {
-		Player player = new Player(this.getActivity());
-		
 		AleTreasure someAle = new AleTreasure(5);
 		AleTreasure fiveAle = (AleTreasure) someAle.clone();
 		assertTrue(fiveAle != null);
 		someAle.qty = 0;
 		assertTrue(fiveAle.qty == 5);
 		
-		TreasureList treasures = new TreasureList(player);
+		TreasureList treasures = new TreasureList();
 		assertTrue(treasures.numTreasures() == 0);
 		treasures.add(fiveAle);
 

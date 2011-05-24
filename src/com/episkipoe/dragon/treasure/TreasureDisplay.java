@@ -1,18 +1,21 @@
 package com.episkipoe.dragon.treasure;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import android.view.ViewGroup;
 import android.widget.TableLayout;
-import android.widget.TableLayout.LayoutParams;
-import android.widget.TableRow;
-import android.widget.TextView;
 
+import com.episkipoe.dragon.Main;
+import com.episkipoe.dragon.agents.Agent;
 import com.episkipoe.dragon.commands.CommandPage;
-import com.episkipoe.dragon.player.Player;
+import com.episkipoe.dragon.player.GUI;
 
 class TreasureDisplay extends CommandPage {
+	Agent owner;
 	TreasureList treasures;
-	protected TreasureDisplay(Player player, TreasureList treasures) {
-		super(player);
+	protected TreasureDisplay(Agent owner, TreasureList treasures) {
+		this.owner=owner;
 		this.treasures=treasures;
 	}
 
@@ -21,52 +24,29 @@ class TreasureDisplay extends CommandPage {
 	
 	protected void addHeader(ViewGroup layout) { 
 		if(treasures.getTreasures() == null) {
-			TextView noneLbl = new TextView(player.getActivity());
-			noneLbl.setText("There is no treasure in this room!");
-			layout.addView(noneLbl);
+			layout.addView(GUI.text("There is no treasure in this room!"));
 			return;
 		}
-		LayoutParams params = new TableLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);	
 		
-		TableLayout table = new TableLayout(player.getActivity());
+		TableLayout table = new TableLayout(Main.player.getActivity());
 		layout.addView(table);
 		
-		TableRow header = new TableRow(player.getActivity());
-		table.addView(header, params);
-		
-		TextView typeLbl = new TextView(player.getActivity());
-		typeLbl.setText("Treasure");
-		header.addView(typeLbl);
-		
-		TextView qtyLbl = new TextView(player.getActivity());
-		qtyLbl.setText("Quantity");
-		header.addView(qtyLbl);
-		
-		TextView valLbl = new TextView(player.getActivity());
-		valLbl.setText("Value");
-		header.addView(valLbl);	
+		List<String> header=new ArrayList<String>();
+		header.add("Treasure");
+		header.add("Quantity");
+		header.add("Value");
+		GUI.tableRow(table, header);
 		
 		table.setColumnStretchable(0, true);
 		table.setColumnStretchable(1, true);
 		for(Treasure t: treasures.getTreasures()) {
-			TableRow row = new TableRow(player.getActivity());
-			table.addView(row, params);
-			
-			TextView type = new TextView(player.getActivity());
-			typeLbl.setText(t.getType());
-			row.addView(type);
-			
-			TextView qty = new TextView(player.getActivity());
-			qtyLbl.setText(String.valueOf(t.qty));
-			row.addView(qty);
-			
-			TextView val = new TextView(player.getActivity());
-			valLbl.setText(String.valueOf(t.getValue(player)));
-			row.addView(val);				
+			List<String> row=new ArrayList<String>();
+			row.add(t.getType());
+			row.add(String.valueOf(t.qty));
+			row.add(String.valueOf(t.getValue(owner)));
+			GUI.tableRow(table, row);
 		}
-		
-		TextView lbl = new TextView(player.getActivity());
-		lbl.setText("Total Value: " + treasures.totalValue());
-		layout.addView(lbl);
+
+		layout.addView(GUI.text("Total Value: " + treasures.totalValue(owner)));
 	}	
 }

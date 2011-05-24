@@ -2,11 +2,10 @@ package com.episkipoe.dragon.rooms;
 
 import com.episkipoe.dragon.commerce.CommerceEvent;
 import com.episkipoe.dragon.commerce.Cost;
-import com.episkipoe.dragon.player.Player;
 
 public class BuildRoomEvent extends CommerceEvent {
-	public BuildRoomEvent(Player player, Room room, Cost cost, boolean notify) {
-		super(player, room, cost, notify);
+	public BuildRoomEvent(Room room, Cost cost, boolean notify) {
+		super(room, cost, notify);
 	}
 
 	@Override

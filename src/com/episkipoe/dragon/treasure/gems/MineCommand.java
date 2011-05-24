@@ -4,12 +4,10 @@ import android.view.View;
 
 import com.episkipoe.dragon.commands.Command;
 import com.episkipoe.dragon.lairs.Lair;
-import com.episkipoe.dragon.player.Player;
 
 public class MineCommand extends Command  {
 	Lair lair;
-	public MineCommand(Player player, Lair lair) {
-		super(player);
+	public MineCommand(Lair lair) {
 		this.lair = lair;
 	}
 	

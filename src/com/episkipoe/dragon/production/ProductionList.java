@@ -9,16 +9,13 @@ import java.util.Random;
 import com.episkipoe.dragon.events.EventScheduler;
 import com.episkipoe.dragon.lairs.Lair;
 import com.episkipoe.dragon.lairs.LairList;
-import com.episkipoe.dragon.player.Player;
 import com.episkipoe.dragon.treasure.Treasure;
 import com.episkipoe.dragon.treasure.TreasureList;
 
 public class ProductionList {
-	private Player player;
 	private List<Product> products;
 	private Map<Product,Double> productionProbability;
-	public ProductionList(Player player) { 
-		this.player = player;
+	public ProductionList() { 
 		products = new ArrayList<Product>();
 		productionProbability = new HashMap<Product,Double> ();
 	}
@@ -37,7 +34,7 @@ public class ProductionList {
 	}
 	
 	public Product addProduct(Treasure resource) {
-		TreasureList list = new TreasureList(player);
+		TreasureList list = new TreasureList();
 		list.add(resource);
 		Product p = new Product(list);
 		products.add(p);
@@ -46,7 +43,7 @@ public class ProductionList {
 	
 	public void scheduleProduction(LairList kingdom, Lair from, Product p) {
 		if(!products.contains(p)) return;
-		ProductionEvent event = new ProductionEvent(player, kingdom, from, p);
+		ProductionEvent event = new ProductionEvent(kingdom, from, p);
 		EventScheduler.schedule(event, p.getCost().getWaitTime());
 	}
 

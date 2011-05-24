@@ -1,16 +1,18 @@
 package com.episkipoe.dragon.agents;
 
+import com.episkipoe.dragon.Main;
 import com.episkipoe.dragon.commands.CommandPage;
-import com.episkipoe.dragon.player.Player;
 
 public class AgentDisplay extends CommandPage {
 	Agent agent;
-	public AgentDisplay(Player player, Agent agent) {
-		super(player);
+	public AgentDisplay(Agent agent) {
 		this.agent = agent;
 	}
-
+	//TODO:  Character sheet
 	@Override
-	public String getCommandName() { return "View stats of " + agent.getName(); }
+	public String getCommandName() { 
+		if(agent == Main.player.getPlayerAgent()) return "Character sheet";
+		return "View " + agent.getName(); 
+	}
 
 }

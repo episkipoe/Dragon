@@ -19,4 +19,6 @@ public class GuardUtils {
 		}
 		return true;
 	}
+	
+	//TODO combat
 }

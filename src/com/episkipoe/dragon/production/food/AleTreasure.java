@@ -1,6 +1,6 @@
 package com.episkipoe.dragon.production.food;
 
-import com.episkipoe.dragon.player.Player;
+import com.episkipoe.dragon.agents.Agent;
 import com.episkipoe.dragon.treasure.Treasure;
 
 public class AleTreasure extends Treasure {
@@ -13,6 +13,6 @@ public class AleTreasure extends Treasure {
 	public String getType() { return "Ale"; }
 
 	@Override
-	public int getValue(Player player) { return (10 * qty); }
+	public int getValue(Agent agent) { return (10 * qty); }
 
 }

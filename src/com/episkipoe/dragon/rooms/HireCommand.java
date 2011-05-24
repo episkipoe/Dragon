@@ -6,17 +6,16 @@ import com.episkipoe.dragon.agents.Agent;
 import com.episkipoe.dragon.commerce.CommerceCommand;
 import com.episkipoe.dragon.commerce.Cost;
 import com.episkipoe.dragon.events.EventScheduler;
-import com.episkipoe.dragon.player.Player;
 
 public class HireCommand extends CommerceCommand {
 	Agent agent;
-	public HireCommand(Player player, Room room, Agent agent, Cost cost) {
-		super(player, room, cost);
+	public HireCommand(Room room, Agent agent, Cost cost) {
+		super(room, cost);
 		this.agent = agent;
 	}
 
 	public void onClick(View v) {
-		HireEvent event = new HireEvent(player, room, agent, cost, true);
+		HireEvent event = new HireEvent(room, agent, cost, true);
 		EventScheduler.schedule(event, cost.getWaitTime());
 	}
 

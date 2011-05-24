@@ -2,7 +2,7 @@ package com.episkipoe.dragon.treasure;
 
 import java.io.Serializable;
 
-import com.episkipoe.dragon.player.Player;
+import com.episkipoe.dragon.agents.Agent;
 
 public abstract class Treasure implements Serializable {
 	private static final long serialVersionUID = 5612971362695594807L;
@@ -23,7 +23,7 @@ public abstract class Treasure implements Serializable {
 	
 	public int qty;
 	abstract public String getType(); 
-	abstract public int getValue(Player player);
+	abstract public int getValue(Agent agent);
 	
 	public String toString() {
 		return qty + " " + getType();

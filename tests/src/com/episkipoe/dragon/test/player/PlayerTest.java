@@ -8,11 +8,16 @@ public class PlayerTest extends android.test.ActivityInstrumentationTestCase2<Ma
 	public PlayerTest() { 
 		super("com.episkipoe.dragon", Main.class);
 	}
+
+	public void testKingdomCreation() throws Exception {
+		Player testAddPlayer = new Player();
+		int nearByKingdoms=3;
+		PlayerUtils.initializeTestPlayer(testAddPlayer, nearByKingdoms);
+		assertTrue(testAddPlayer.getNeighboringKingdoms().size() == nearByKingdoms);
+	}
 	
-	public void testPlayer() {
+	public void testPlayer() throws Exception {
 		Player player = new Player(this.getActivity());
-		PlayerUtils.initializePlayer(player, 2);
-		
 		assertTrue(player.getLairList().isMine());
 	}
 }
