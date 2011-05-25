@@ -7,6 +7,7 @@ import com.episkipoe.dragon.commands.CommandPage;
 import com.episkipoe.dragon.lairs.Lair;
 
 public abstract class Room extends CommandPage {
+	private static final long serialVersionUID = -7495858751162192872L;
 	protected Lair lair;
 	protected Room() {} 
 	protected Room(Lair lair) {

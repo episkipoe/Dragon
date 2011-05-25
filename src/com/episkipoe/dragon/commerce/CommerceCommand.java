@@ -5,6 +5,7 @@ import com.episkipoe.dragon.lairs.LairList;
 import com.episkipoe.dragon.rooms.Room;
 
 public abstract class CommerceCommand extends Command {
+	private static final long serialVersionUID = -2463715709626206147L;
 	protected Room room;
 	protected Cost cost;
 	public CommerceCommand(Room room, Cost cost) {

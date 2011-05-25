@@ -12,6 +12,8 @@ import com.episkipoe.dragon.lairs.royal.CastleLair;
 import com.episkipoe.dragon.rooms.Room;
 
 public class LairList extends CommandPage {
+	private static final long serialVersionUID = 7999013889938944161L;
+	
 	Agent owner;
 	public LairList(Agent owner) {
 		this.owner = owner;

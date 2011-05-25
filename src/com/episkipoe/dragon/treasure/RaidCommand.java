@@ -6,6 +6,7 @@ import com.episkipoe.dragon.commands.Command;
 import com.episkipoe.dragon.lairs.Lair;
 
 public class RaidCommand extends Command {
+	private static final long serialVersionUID = 2976420337615102703L;
 	Lair lair;
 	String target;
 	public RaidCommand (Lair lair, String target) {

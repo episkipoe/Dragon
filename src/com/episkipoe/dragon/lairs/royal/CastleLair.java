@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Random;
 
 import com.episkipoe.dragon.agents.Agent;
-import com.episkipoe.dragon.agents.royalty.KingAgent;
+import com.episkipoe.dragon.agents.classes.royalty.KingClass;
 import com.episkipoe.dragon.dungeon.DungeonRoom;
 import com.episkipoe.dragon.lairs.Lair;
 import com.episkipoe.dragon.production.food.BreweryRoom;
@@ -14,6 +14,8 @@ import com.episkipoe.dragon.rooms.Room;
 import com.episkipoe.dragon.treasure.TreasureRoom;
 
 public class CastleLair extends Lair {
+	private static final long serialVersionUID = 8633086528040582046L;
+
 	public CastleLair() { }
 	public CastleLair(Agent owner) {
 		super(owner);
@@ -35,7 +37,7 @@ public class CastleLair extends Lair {
 	public boolean createOwner() {
 		Random rnd = new Random();
 		int level = 2+rnd.nextInt(20);
-		setOwner(new KingAgent(level));
+		setOwner(new KingClass(level));
 		return true;
 	}
 	

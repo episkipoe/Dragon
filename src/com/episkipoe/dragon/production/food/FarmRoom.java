@@ -12,6 +12,8 @@ import com.episkipoe.dragon.production.ProductionRoom;
 import com.episkipoe.dragon.rooms.BuildRoomCommand;
 
 public class FarmRoom extends ProductionRoom {
+	private static final long serialVersionUID = -2818358797223917564L;
+	
 	List<ProductionCommand> products;
 	public FarmRoom() { }
 	public FarmRoom(Lair lair) {
@@ -27,6 +29,8 @@ public class FarmRoom extends ProductionRoom {
 	public String getCommandName() { return "Farm"; }
 
 	private class FarmGrainCommand extends ProductionCommand {
+		private static final long serialVersionUID = -3597967446891551838L;
+
 		public FarmGrainCommand(ProductionRoom room, Product product) {
 			super(room, product);
 		}

@@ -9,6 +9,7 @@ import com.episkipoe.dragon.rooms.Room;
 import com.episkipoe.dragon.treasure.RaidCommand;
 
 public abstract class ProductionRoom extends Room {
+	private static final long serialVersionUID = -8274655596305471194L;
 	private ProductionList produces=null;
 	public boolean productionInProgress;
 	public ProductionRoom() { }

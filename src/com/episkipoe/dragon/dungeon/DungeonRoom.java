@@ -12,7 +12,8 @@ import com.episkipoe.dragon.rooms.Room;
 import com.episkipoe.dragon.treasure.TreasureList;
 
 public class DungeonRoom extends Room {
-
+	private static final long serialVersionUID = -3516388211973601575L;
+	
 	public DungeonRoom() { }
 	public DungeonRoom(Lair lair) {
 		super(lair);

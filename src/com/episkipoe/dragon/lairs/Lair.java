@@ -14,6 +14,7 @@ import com.episkipoe.dragon.rooms.RoomSet;
 import com.episkipoe.dragon.treasure.TreasureRoom;
 
 public abstract class Lair extends CommandPage {
+	private static final long serialVersionUID = -323992456148996830L;
 	protected Agent owner;
 	protected LairList kingdom;
 	protected Lair() {}  //TODO:  test lair with no owner
@@ -26,11 +27,11 @@ public abstract class Lair extends CommandPage {
 	 */
 	public List<Class<? extends Room>> getAllowedRooms() { return getCommonRooms(); }
 	public String getDescription() { 
-		return getRoomSet() + " buildings";
+		return getRoomSet().numRooms() + " buildings";
 	}
 	public boolean createOwner() { return false; }
 	public List<Class<? extends Lair>> getSubLairs() { return null; }
-	
+	public void postCreate() { }
 
 	/*
 	 *  Utility methods

@@ -8,6 +8,7 @@ import com.episkipoe.dragon.lairs.Lair;
 import com.episkipoe.dragon.lairs.LairList;
 
 public abstract class ProductionCommand extends Command {
+	private static final long serialVersionUID = -6144942045547759137L;
 	private ProductionRoom room;
 	private Product product;
 	public ProductionCommand(ProductionRoom room, Product product) {

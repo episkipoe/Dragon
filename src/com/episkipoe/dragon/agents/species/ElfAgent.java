@@ -1,6 +1,8 @@
-package com.episkipoe.dragon.agents.minions;
+package com.episkipoe.dragon.agents.species;
 
-public class ElfAgent extends MinionAgent {
+import com.episkipoe.dragon.agents.Agent;
+
+public class ElfAgent extends Agent {
 	private static final long serialVersionUID = -1746273078372318869L;
 	
 	public ElfAgent(int level) {

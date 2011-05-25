@@ -11,33 +11,38 @@ public class Main extends Activity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        
         try {
-			player = new Player(this);
+        	player = Player.load(this);
+		} catch (Exception e) {
+			System.out.println("Could not load player: " + e.getMessage());
+			player = null;
+		}
+		try {
+	    	if(player==null) player = new Player(this);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-        player.showMainPage();
+		if(player != null) player.showMainPage();
     }
     
     @Override
     public boolean onTouchEvent(MotionEvent event) {
 	    return player.onTouchEvent(event);
     }
-    public void onPause() {
-    	super.onPause();
+    public void onSaveInstanceState(Bundle b) {
     	try {
 			player.save();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+    	super.onPause();
 	}
-    public void onResume() {
-    	super.onResume();
+    public void onRestoreInstanceState(Bundle b) {
     	try {
-			player.load();
+        	player = Player.load(this);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+    	super.onResume();
     }
 }

@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Random;
 
 import com.episkipoe.dragon.agents.Agent;
-import com.episkipoe.dragon.agents.DragonAgent;
+import com.episkipoe.dragon.agents.species.DragonAgent;
 import com.episkipoe.dragon.dungeon.DungeonRoom;
 import com.episkipoe.dragon.lairs.Lair;
 import com.episkipoe.dragon.production.food.BreweryRoom;
@@ -14,6 +14,8 @@ import com.episkipoe.dragon.treasure.MineRoom;
 import com.episkipoe.dragon.treasure.TreasureRoom;
 
 public class MountainLair extends Lair {
+	private static final long serialVersionUID = -1642083026417983267L;
+
 	public MountainLair() { }
 	public MountainLair(Agent owner) {
 		super(owner);

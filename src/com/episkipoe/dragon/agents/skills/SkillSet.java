@@ -1,18 +1,27 @@
 package com.episkipoe.dragon.agents.skills;
 
+import java.io.Serializable;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
-public class SkillSet {
-	public SkillSet() {
+import com.episkipoe.dragon.agents.Agent;
+
+public class SkillSet implements Serializable {
+	private static final long serialVersionUID = 763966347600592241L;
+	
+	Agent agent;
+	public SkillSet(Agent agent) {
+		this.agent = agent;
 		resetSkills();
 	}
-	public SkillSet(Skill s) {
+	public SkillSet(Agent agent, Skill s) {
+		this.agent = agent;
 		resetSkills();
 		add(s);
 	}
-	public SkillSet(Collection<Skill> sList) {
+	public SkillSet(Agent agent, Collection<Skill> sList) {
+		this.agent = agent;
 		resetSkills();
 		for(Skill s: sList) add(s);
 	}

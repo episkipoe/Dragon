@@ -13,6 +13,8 @@ import com.episkipoe.dragon.rooms.BuildRoomCommand;
 import com.episkipoe.dragon.treasure.TreasureList;
 
 public class BreweryRoom extends ProductionRoom {
+	private static final long serialVersionUID = 8794169756942869835L;
+	
 	List<ProductionCommand> products;
 	public BreweryRoom() { }
 	public BreweryRoom(Lair lair) {
@@ -34,6 +36,8 @@ public class BreweryRoom extends ProductionRoom {
 	}
 	
 	private class BrewAleCommand extends ProductionCommand {
+		private static final long serialVersionUID = -4665415979701491950L;
+
 		public BrewAleCommand(ProductionRoom room, Product product) {
 			super(room, product);
 		}

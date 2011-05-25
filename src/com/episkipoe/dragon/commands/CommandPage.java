@@ -11,8 +11,9 @@ import android.widget.TextView;
 import com.episkipoe.dragon.Main;
 
 public abstract class CommandPage extends Command {
-	protected CommandPage() {
-	}
+	private static final long serialVersionUID = 4070075706658130691L;
+	
+	protected CommandPage() { }
 
 	protected List<Command> commandList;
 	protected void prepareCommands() { }

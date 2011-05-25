@@ -12,6 +12,7 @@ import com.episkipoe.dragon.commands.CommandPage;
 import com.episkipoe.dragon.player.GUI;
 
 class TreasureDisplay extends CommandPage {
+	private static final long serialVersionUID = -3496239085773165659L;
 	Agent owner;
 	TreasureList treasures;
 	protected TreasureDisplay(Agent owner, TreasureList treasures) {

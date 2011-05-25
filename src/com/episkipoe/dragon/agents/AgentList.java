@@ -1,22 +1,20 @@
 package com.episkipoe.dragon.agents;
 
+import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Map;
-import java.util.TreeMap;
+import java.util.List;
 
 public class AgentList {
 	public AgentList() {
-		agents = new TreeMap<String,Agent>();
+		agents = new ArrayList<Agent>();
 	}
 	
 	public String getName() { return "View Agents"; }
 	
-	private Map<String,Agent> agents;
-	public void add(Agent a) { agents.put(a.getName(), a); }
-	public void setAgent(String type, Agent a) { agents.put(type,a); }
-	public Agent getAgent(String type) { return agents.get(type); }
+	private List<Agent> agents;
+	public void add(Agent a) { agents.add(a); }
 	public int numAgents() { return agents.size(); }
 
-	public Collection<Agent> getAgents () { return agents.values(); }
+	public Collection<Agent> getAgents () { return agents; }
 	
 }

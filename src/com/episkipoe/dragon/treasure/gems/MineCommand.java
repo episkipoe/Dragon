@@ -6,6 +6,7 @@ import com.episkipoe.dragon.commands.Command;
 import com.episkipoe.dragon.lairs.Lair;
 
 public class MineCommand extends Command  {
+	private static final long serialVersionUID = 7933405921435543908L;
 	Lair lair;
 	public MineCommand(Lair lair) {
 		this.lair = lair;

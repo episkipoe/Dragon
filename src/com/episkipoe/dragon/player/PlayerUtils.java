@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.episkipoe.dragon.agents.Agent;
 import com.episkipoe.dragon.agents.Agent.Relationship;
-import com.episkipoe.dragon.agents.DragonAgent;
+import com.episkipoe.dragon.agents.species.DragonAgent;
 import com.episkipoe.dragon.lairs.KingdomBuilder;
 import com.episkipoe.dragon.lairs.Lair;
 import com.episkipoe.dragon.lairs.LairList;

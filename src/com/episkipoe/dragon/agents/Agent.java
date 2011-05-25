@@ -4,8 +4,9 @@ import java.io.Serializable;
 
 import com.episkipoe.dragon.Main;
 import com.episkipoe.dragon.agents.attributes.AttributeSet;
+import com.episkipoe.dragon.agents.classes.AgentClassSet;
+import com.episkipoe.dragon.agents.skills.Skill;
 import com.episkipoe.dragon.agents.skills.SkillSet;
-import com.episkipoe.dragon.dungeon.Prisoner;
 import com.episkipoe.dragon.rooms.Room;
 
 
@@ -14,56 +15,109 @@ public abstract class Agent implements Serializable {
 	
 	public Agent(int level) {
 		for(int i=0;i<level;i++) levelUp();		
+		postCreate();
 	} 
-	
+
+	/*
+	 * Methods that must be overridden
+	 */
 	public abstract String getType();
+
 	
-	private String name = "Unnamed";
-	public void setName(String name) { this.name = name; }
-	public String getName() { return name; }
-	public String getDescription() {
-		return getName() + ": a level " + level + " " + getType();
+	/*
+	 * Methods that can/should be overridden
+	 */
+	
+	/**
+	 * 
+	 * @param type
+	 * @return is this agent able to use this skill
+	 */
+	public boolean can(Class<? extends Skill> type) {
+		Skill s;
+		try {
+			s = type.newInstance();
+		} catch(Exception e) {
+			return false;
+		}
+		return s.canByDefault();
+	}
+	/**
+	 * 
+	 * @return if this agent mates with the other agent, what species (if any) is produced
+	 *  (e.g.  Human + Human = Human,  Human + Elf = HalfElf)
+	 */
+	public Class<? extends Agent> getMateSpecies(Agent other) {  
+		if(this.getClass() == other.getClass()) return this.getClass();
+		return null;
 	}
 	
+	/**
+	 * Called after new level is applied, any specific benefits should occur here
+	 */
+	public void postLevelUp() { }
+
+	/*
+	 * Utility methods
+	 */
+	
+	/**
+	 * Called after an agent is created and leveled up. 
+	 * put any Agent-specific initialization in here
+	 */
+	public void postCreate() { }
+	
+	private String name = "Unnamed";
+	final public void setName(String name) { this.name = name; }
+	final public String getName() { return name; }
+	final public String getDescription() {
+		return getName() + ": a level " + level + " " + getType();
+	}
+
 	private int level=0;
-	public void setLevel(int level) { this.level = level; }
-	public int getLevel() { return level; }
-	public void levelUp() {
+	final public int getLevel() { return level; }
+	final public void levelUp() {
 		level++;
 		getAttributeSet().levelUp(this);
 		if(Main.player != null && this == Main.player.getPlayerAgent()) { 
 			Main.player.setCharacterLabel();
 		}
+		postLevelUp();
 	}
 	
 	private Room location=null;
-	public void setLocation(Room location) { this.location = location; }
-	public Room getLocation() { return location; }
+	final public void setLocation(Room location) { this.location = location; }
+	final public Room getLocation() { return location; }
 	
 	public enum Relationship { PLAYER, ENEMY, NEUTRAL, ALLY }
 	private Relationship relationship=Relationship.NEUTRAL;
-
-	public void setRelationship(Relationship relationship) {
+	final public Relationship getRelationship() { return relationship; }
+	final public void setRelationship(Relationship relationship) {
 		this.relationship = relationship;
 	}
 
-	public Relationship getRelationship() {
-		return relationship;
-	}
-
-	SkillSet skillSet = null;
-	public SkillSet getSkillSet() {
-		if(skillSet == null) skillSet = new SkillSet();
-		return skillSet;
+	private AgentClassSet classSet = null;
+	final public AgentClassSet getClassSet() {
+		if(classSet==null) classSet = new AgentClassSet();
+		return classSet;
 	}
 	
-	AttributeSet attributeSet = null;
-	public AttributeSet getAttributeSet() {
+	private AttributeSet attributeSet = null;
+	final public AttributeSet getAttributeSet() {
 		if(attributeSet == null) attributeSet = new AttributeSet();
 		return attributeSet;
 	}
-
-	public Prisoner toPrisoner() {
-		return new Prisoner(this);
+	
+	private SkillSet skillSet = null;
+	final public SkillSet getSkillSet() {
+		if(skillSet == null) skillSet = new SkillSet(this);
+		return skillSet;
 	}
+
+	private AgentMate mate;
+	final public AgentMate getAgentMate() {
+		if(mate==null) mate = new AgentMate(this);
+		return mate;
+	}
+
 }

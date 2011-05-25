@@ -9,4 +9,7 @@ public class SneakSkill extends Skill {
 	@Override
 	public String getName() { return "Sneak"; }
 
+	@Override
+	public boolean canByDefault() { return true; }
+
 }

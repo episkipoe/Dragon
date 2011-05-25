@@ -23,6 +23,7 @@ public class KingdomBuilder {
 			idx = rnd.nextInt(subLairs.size());
 			Lair newLair = subLairs.get(idx).newInstance();
 			newLair.setOwner(owner);
+			newLair.postCreate();
 			kingdom.addLair(newLair);
 		}
 

@@ -8,6 +8,7 @@ import com.episkipoe.dragon.commerce.Cost;
 import com.episkipoe.dragon.events.EventScheduler;
 
 public class HireCommand extends CommerceCommand {
+	private static final long serialVersionUID = 2357730369227472014L;
 	Agent agent;
 	public HireCommand(Room room, Agent agent, Cost cost) {
 		super(room, cost);

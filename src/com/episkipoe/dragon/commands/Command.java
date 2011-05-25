@@ -1,5 +1,7 @@
 package com.episkipoe.dragon.commands;
 
+import java.io.Serializable;
+
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -11,7 +13,9 @@ import android.widget.TextView;
 import com.episkipoe.dragon.Main;
 import com.episkipoe.dragon.events.Event;
 
-public abstract class Command implements View.OnClickListener {
+public abstract class Command implements View.OnClickListener, Serializable {
+	private static final long serialVersionUID = 8961022683093633641L;
+	
 	private boolean enabled=true;
 	public Command() { } 
 	
@@ -26,7 +30,7 @@ public abstract class Command implements View.OnClickListener {
 	 */
 	public String getDescription() { return null; }
 
-	private Button btn=null;
+	private transient Button btn=null;
 	final private Button getButton() { 
 		btn = new Button(Main.player.getActivity());
 		btn.setText(getCommandName());

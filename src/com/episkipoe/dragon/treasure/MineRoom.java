@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import com.episkipoe.dragon.agents.Agent;
 import com.episkipoe.dragon.agents.Agent.Relationship;
 import com.episkipoe.dragon.agents.AgentList;
-import com.episkipoe.dragon.agents.minions.DwarfAgent;
+import com.episkipoe.dragon.agents.species.DwarfAgent;
 import com.episkipoe.dragon.commands.Command;
 import com.episkipoe.dragon.commerce.Cost;
 import com.episkipoe.dragon.lairs.Lair;
@@ -17,6 +17,8 @@ import com.episkipoe.dragon.treasure.gems.MineCommand;
 
 
 public class MineRoom extends Room {
+	private static final long serialVersionUID = -8155843361549611478L;
+	
 	public MineRoom() { }
 	public MineRoom(Lair lair) {
 		super(lair);

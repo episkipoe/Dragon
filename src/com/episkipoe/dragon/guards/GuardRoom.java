@@ -10,6 +10,7 @@ import com.episkipoe.dragon.rooms.Room;
 import com.episkipoe.dragon.treasure.TreasureList;
 
 public class GuardRoom extends Room {
+	private static final long serialVersionUID = -6574115771401973237L;
 
 	public GuardRoom() { }
 	protected GuardRoom(Lair lair) {

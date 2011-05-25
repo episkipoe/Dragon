@@ -6,4 +6,7 @@ public class BraverySkill extends Skill {
 	@Override
 	public String getName() { return "Bravery"; }
 
+	@Override
+	public boolean canByDefault() { return true; }
+
 }

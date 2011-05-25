@@ -14,7 +14,8 @@ import com.episkipoe.dragon.rooms.BuildRoomCommand;
 import com.episkipoe.dragon.rooms.Room;
 
 public class TreasureRoom extends Room {
-
+	private static final long serialVersionUID = 4876002642363063730L;
+	
 	public TreasureRoom() { }
 	public TreasureRoom(Lair lair) {
 		super(lair);

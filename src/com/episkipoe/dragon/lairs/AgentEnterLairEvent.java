@@ -22,9 +22,9 @@ public class AgentEnterLairEvent extends Event {
 		Room guardRoom = lair.getRoomSet().get(GuardRoom.class);
 		if(guardRoom == null) return;
 		SkillSet agentSkills = agent.getSkillSet();
-		SkillSet sneak = new SkillSet(agentSkills.getSkill(SneakSkill.class));
+		SkillSet sneak = new SkillSet(agent, agentSkills.getSkill(SneakSkill.class));
 		if(SkillUtils.skillCheck(sneak, guardRoom.level)) return ;
-		SkillSet fear = new SkillSet(agentSkills.getSkill(FearSkill.class));
+		SkillSet fear = new SkillSet(agent, agentSkills.getSkill(FearSkill.class));
 		if(SkillUtils.skillCheck(fear, guardRoom.level)) return ;
 		
 		//TODO:  fear check / combat / fail / notify / etc

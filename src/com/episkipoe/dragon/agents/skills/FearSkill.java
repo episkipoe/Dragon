@@ -6,4 +6,7 @@ public class FearSkill extends Skill {
 	@Override
 	public String getName() { return "Instill Fear"; }
 
+	@Override
+	public boolean canByDefault() { return false; }
+
 }

@@ -6,4 +6,7 @@ public class PerceptionSkill extends Skill {
 	@Override
 	public String getName() { return "Perception"; }
 
+	@Override
+	public boolean canByDefault() { return true; }
+
 }

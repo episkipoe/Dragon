@@ -12,9 +12,9 @@ public class GuardUtils {
 	public static boolean canSneakPastGuards(Room room, Agent agent, boolean notify) {
 		AgentList guards = room.getGuards();
 		if(guards == null) return true;
-		SkillSet sneak = new SkillSet(agent.getSkillSet().getSkill(SneakSkill.class));
+		SkillSet sneak = new SkillSet(agent, agent.getSkillSet().getSkill(SneakSkill.class));
 		for(Agent g : guards.getAgents()) {
-			SkillSet notice = new SkillSet(g.getSkillSet().getSkill(PerceptionSkill.class));
+			SkillSet notice = new SkillSet(g, g.getSkillSet().getSkill(PerceptionSkill.class));
 			if (!SkillUtils.skillCheck(sneak, notice)) return false;
 		}
 		return true;

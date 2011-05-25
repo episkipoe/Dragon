@@ -8,6 +8,7 @@ import com.episkipoe.dragon.commerce.Cost;
 import com.episkipoe.dragon.events.EventScheduler;
 
 public class BuildRoomCommand extends CommerceCommand {
+	private static final long serialVersionUID = -2659403363456605251L;
 	private boolean scheduled=false;
 	public BuildRoomCommand(Room room, Cost cost) {
 		super(room, cost);

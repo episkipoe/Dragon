@@ -9,6 +9,8 @@ import com.episkipoe.dragon.production.food.FarmRoom;
 import com.episkipoe.dragon.rooms.Room;
 
 public class VillageLair extends Lair {
+	private static final long serialVersionUID = 6434942538638628956L;
+
 	protected VillageLair() { }
 	protected VillageLair(Agent owner) {
 		super(owner);

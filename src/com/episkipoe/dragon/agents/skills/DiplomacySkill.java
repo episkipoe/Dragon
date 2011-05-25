@@ -6,4 +6,7 @@ public class DiplomacySkill extends Skill {
 	@Override
 	public String getName() { return "Diplomacy"; }
 
+	@Override
+	public boolean canByDefault() { return true; }
+
 }
