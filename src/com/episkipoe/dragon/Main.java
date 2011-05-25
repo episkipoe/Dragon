@@ -24,4 +24,20 @@ public class Main extends Activity {
     public boolean onTouchEvent(MotionEvent event) {
 	    return player.onTouchEvent(event);
     }
+    public void onPause() {
+    	super.onPause();
+    	try {
+			player.save();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+    public void onResume() {
+    	super.onResume();
+    	try {
+			player.load();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+    }
 }

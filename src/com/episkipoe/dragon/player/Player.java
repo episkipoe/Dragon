@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.app.Activity;
+import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -14,6 +15,7 @@ import com.episkipoe.dragon.agents.Agent;
 import com.episkipoe.dragon.agents.AgentDisplay;
 import com.episkipoe.dragon.commands.Command;
 import com.episkipoe.dragon.commands.CommandPage;
+import com.episkipoe.dragon.common.FileUtils;
 import com.episkipoe.dragon.lairs.LairList;
 import com.episkipoe.dragon.pages.PageManager;
 
@@ -28,15 +30,27 @@ public class Player {
 	public Player() {
 		loadMainActions();
 	}
-
-	/*
-	public void savePlayer() throws Exception {
-		File root = Environment.getExternalStorageDirectory(); 
-		File dragonRoot = new File(root, "dragon");
-		File playerFile = new File(dragonRoot, playerAgent.getName());
-		FileUtils.writeToFile(playerFile, playerAgent);
+	
+	public void save() throws Exception {
+		savePlayer();
 	}
-	*/
+	public void load() throws Exception {
+		loadPlayer();
+	}
+	public void savePlayer() throws Exception {
+		FileUtils.writeToFile(FileUtils.getFile("player_agent"), playerAgent);
+	}
+	public void loadPlayer() throws Exception {
+		Object player ;
+		try {
+			player = FileUtils.readFromFile(FileUtils.getFile("player_agent"));
+			if(player==null) return ;
+		} catch(Exception e) {
+			System.out.println("could not load: " + e.getMessage());
+			return ;
+		}
+		playerAgent = (Agent) player;
+	}
 	
 	private class ListNeighbors extends CommandPage {
 
@@ -105,10 +119,11 @@ public class Player {
 		activity.setTitle("Dragon");
 	}
 
-	TextView characterLabel=null;
+	private TextView characterLabel=null;
 	public void setCharacterLabel() {
 		if(characterLabel == null) return ;
 		characterLabel.setText(getPlayerAgent().getDescription());
+		System.out.println("set lbl " + getPlayerAgent().getLevel());
 	}
 	
 	public View getActions() {
@@ -126,6 +141,10 @@ public class Player {
 	public boolean onTouchEvent(MotionEvent event) {
 		getPageManager().onTouchEvent(event);
 		return false;
+	}
+
+	public void onRestoreInstance(Bundle savedInstanceState) {
+		
 	}
 
 	public void popupNotify(String text) {

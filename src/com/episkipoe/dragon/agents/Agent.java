@@ -2,6 +2,7 @@ package com.episkipoe.dragon.agents;
 
 import java.io.Serializable;
 
+import com.episkipoe.dragon.Main;
 import com.episkipoe.dragon.agents.attributes.AttributeSet;
 import com.episkipoe.dragon.agents.skills.SkillSet;
 import com.episkipoe.dragon.dungeon.Prisoner;
@@ -30,6 +31,9 @@ public abstract class Agent implements Serializable {
 	public void levelUp() {
 		level++;
 		getAttributeSet().levelUp(this);
+		if(Main.player != null && this == Main.player.getPlayerAgent()) { 
+			Main.player.setCharacterLabel();
+		}
 	}
 	
 	private Room location=null;

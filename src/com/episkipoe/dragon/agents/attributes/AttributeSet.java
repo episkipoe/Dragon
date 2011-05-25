@@ -1,12 +1,15 @@
 package com.episkipoe.dragon.agents.attributes;
 
+import java.io.Serializable;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
 import com.episkipoe.dragon.agents.Agent;
 
-public class AttributeSet {
+public class AttributeSet implements Serializable {
+	private static final long serialVersionUID = -6771981332662692279L;
+	
 	public AttributeSet() {
 		resetAttributes();
 	}
