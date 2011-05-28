@@ -1,10 +1,10 @@
 package com.episkipoe.dragon.events;
 
-import com.episkipoe.dragon.Main;
-
 import android.os.Handler;
 import android.os.Message;
 import android.widget.Toast;
+
+import com.episkipoe.dragon.Main;
 
 public class GUIHandler extends Handler {
 	public static final int REFRESH = 0;

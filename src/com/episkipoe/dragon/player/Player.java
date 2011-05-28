@@ -11,8 +11,9 @@ import com.episkipoe.dragon.Main;
 import com.episkipoe.dragon.agents.Agent;
 import com.episkipoe.dragon.agents.AgentDisplay;
 import com.episkipoe.dragon.common.FileUtils;
-import com.episkipoe.dragon.events.EventQueue;
+import com.episkipoe.dragon.events.EventThread;
 import com.episkipoe.dragon.events.GUIHandler;
+import com.episkipoe.dragon.events.MaintenanceTimerTask;
 import com.episkipoe.dragon.lairs.LairList;
 import com.episkipoe.dragon.pages.PageManager;
 
@@ -26,37 +27,51 @@ public class Player implements Serializable {
 		this.activity = activity;
 	}
 	
+	static private final String PLAYER_FILE="player";
 	public void save() throws Exception {
-		FileUtils.writeToFile(FileUtils.getFile("player_agent"), this);
+		FileUtils.writeToFile(FileUtils.getFile(PLAYER_FILE), this);
 	}
 	
-	static public Player load(Activity a) throws Exception {
+	static public Player load(Activity activity) throws Exception {
+		String fileName = PLAYER_FILE;
+		if(!FileUtils.getFile(fileName).exists()) return null;
+		
 		Object player ;
 		try {
-			player = FileUtils.readFromFile(FileUtils.getFile("player_agent"));
+			player = FileUtils.readFromFile(FileUtils.getFile(fileName));
 			if(player==null) return null;
 		} catch(Exception e) {
 			System.out.println("could not load: " + e.getMessage());
 			return null;
 		}
 		Player p = (Player) player;
-		p.activity = a;
+		p.activity = activity;
 		return p;
 	}
 	
-
 	static public void loadGame(Activity activity) throws Exception {
     	Main.player = Player.load(activity);	
-    	if(Main.player!=null) {
-			Main.player.showMainPage();
-    	}
+    	if(Main.player==null) { return; }
+		Main.player.startGame();
 	}
 	
 	static public void newGame(Activity activity) throws Exception {
 		Main.player = new Player(activity);
 		int nearByKingdoms = 10;
 		PlayerUtils.initializeTestPlayer(Main.player, nearByKingdoms);		
+		Main.player.startGame();
+	}
+	
+	private transient MaintenanceTimerTask maintenanceTimer=null;
+	public void startGame() {
+		maintenanceTimer = new MaintenanceTimerTask(); 
 		Main.player.showMainPage();
+	}
+	
+	public void endGame() {
+		if(maintenanceTimer != null) {
+			maintenanceTimer.end();
+		}
 	}
 	
 	public void setMainTitle() {
@@ -113,13 +128,13 @@ public class Player implements Serializable {
 		return false;
 	}
 
-	private transient EventQueue eventQueue = null;
-	public EventQueue getEventQueue() { 
-		if(eventQueue == null) {
-			eventQueue = new EventQueue();
-			eventQueue.start();
+	private transient EventThread eventThread = null;
+	public EventThread getEventThread() { 
+		if(eventThread == null) {
+			eventThread = new EventThread();
+			eventThread.start();
 		}
-		return eventQueue; 
+		return eventThread; 
 	}
 	private transient GUIHandler guiHandler;
 	public GUIHandler guiHandler() { 

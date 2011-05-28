@@ -10,17 +10,14 @@ public class HireEvent extends CommerceEvent {
 	boolean notify;
 	public HireEvent(Agent agent, Room room, Agent employee, Cost cost, boolean notify) {
 		super(agent, room, cost, notify);
-		this.agent = agent;
+		this.employee = employee;
 		this.notify = notify;
 	}
 
 	@Override
 	public void run() {
-		if(!subtractCost()) {
-			return;
-		}
+		if(!subtractCost()) { return; }
 		room.hireAgent(employee);
-		employee.setLocation(room);
 		postRun();
 	}
 

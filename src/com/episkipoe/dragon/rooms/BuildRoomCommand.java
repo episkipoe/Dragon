@@ -3,8 +3,8 @@ package com.episkipoe.dragon.rooms;
 import android.view.View;
 
 import com.episkipoe.dragon.Main;
-import com.episkipoe.dragon.commerce.RoomCommerceCommand;
 import com.episkipoe.dragon.commerce.Cost;
+import com.episkipoe.dragon.commerce.RoomCommerceCommand;
 
 public class BuildRoomCommand extends RoomCommerceCommand {
 	private static final long serialVersionUID = -2659403363456605251L;

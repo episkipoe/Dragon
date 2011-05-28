@@ -13,6 +13,7 @@ import com.episkipoe.dragon.agents.species.HumanAgent;
 import com.episkipoe.dragon.commands.Command;
 import com.episkipoe.dragon.commerce.Cost;
 import com.episkipoe.dragon.dungeon.DungeonRoom;
+import com.episkipoe.dragon.guards.GuardRoom;
 import com.episkipoe.dragon.lairs.BuildLairCommand;
 import com.episkipoe.dragon.lairs.Lair;
 import com.episkipoe.dragon.lairs.LairList;
@@ -58,9 +59,22 @@ public class CastleLair extends Lair {
 		return true;
 	}
 	
-	public void postCreate() {
-		TreasureRoom treasure = new TreasureRoom(this);
-		getRoomSet().add(treasure);	
+	public void postCreate(int level) {
+		List<Class<? extends Room>> roomsToBuild = new ArrayList<Class<? extends Room>>();
+		if(level>20) {
+			roomsToBuild.add(GuardRoom.class);
+		}		
+		if(level>15) {
+			roomsToBuild.add(DungeonRoom.class);
+		}
+		if(level>8) {
+			roomsToBuild.add(BreweryRoom.class);
+		}
+		if(level>3) {
+			roomsToBuild.add(FarmRoom.class);
+		}
+		roomsToBuild.add(TreasureRoom.class);
+		addRoomList(roomsToBuild, level);
 	}
 	
 	public List<Class<? extends Lair>> getSubLairs() {

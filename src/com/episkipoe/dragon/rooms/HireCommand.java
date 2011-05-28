@@ -4,8 +4,8 @@ import android.view.View;
 
 import com.episkipoe.dragon.Main;
 import com.episkipoe.dragon.agents.Agent;
-import com.episkipoe.dragon.commerce.RoomCommerceCommand;
 import com.episkipoe.dragon.commerce.Cost;
+import com.episkipoe.dragon.commerce.RoomCommerceCommand;
 
 public class HireCommand extends RoomCommerceCommand {
 	private static final long serialVersionUID = 2357730369227472014L;

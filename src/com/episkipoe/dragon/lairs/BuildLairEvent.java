@@ -2,11 +2,11 @@ package com.episkipoe.dragon.lairs;
 
 import com.episkipoe.dragon.Main;
 import com.episkipoe.dragon.agents.Agent;
+import com.episkipoe.dragon.agents.AgentEvent;
 import com.episkipoe.dragon.commerce.CommerceUtils;
 import com.episkipoe.dragon.commerce.Cost;
-import com.episkipoe.dragon.events.Event;
 
-public class BuildLairEvent extends Event {
+public class BuildLairEvent extends AgentEvent {
 	private static final long serialVersionUID = 2392041408331651081L;
 	private LairList kingdom;
 	private Lair lair;

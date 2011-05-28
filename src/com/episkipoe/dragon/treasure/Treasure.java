@@ -4,6 +4,10 @@ import java.io.Serializable;
 
 import com.episkipoe.dragon.agents.Agent;
 
+/**
+ *  A tangible quantity of goods 
+ *
+ */
 public abstract class Treasure implements Serializable {
 	private static final long serialVersionUID = 5612971362695594807L;
 

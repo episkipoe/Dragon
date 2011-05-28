@@ -7,8 +7,10 @@ import com.episkipoe.dragon.Main;
 import com.episkipoe.dragon.agents.Agent;
 import com.episkipoe.dragon.commands.Command;
 import com.episkipoe.dragon.commerce.Cost;
+import com.episkipoe.dragon.guards.GuardRoom;
 import com.episkipoe.dragon.production.food.FarmRoom;
 import com.episkipoe.dragon.rooms.Room;
+import com.episkipoe.dragon.treasure.TreasureRoom;
 
 public class VillageLair extends Lair {
 	private static final long serialVersionUID = 6434942538638628956L;
@@ -26,6 +28,18 @@ public class VillageLair extends Lair {
 		rooms.add(FarmRoom.class);
 		rooms.addAll(getCommonRooms());
 		return rooms; 
+	}
+	
+	public void postCreate(int level) {
+		List<Class<? extends Room>> roomsToBuild = new ArrayList<Class<? extends Room>>();
+		if(level>20) {
+			roomsToBuild.add(GuardRoom.class);
+		}		
+		if(level>3) {
+			roomsToBuild.add(FarmRoom.class);
+		}
+		roomsToBuild.add(TreasureRoom.class);
+		addRoomList(roomsToBuild, level);
 	}
 
 	@Override

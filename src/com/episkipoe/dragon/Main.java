@@ -33,6 +33,7 @@ public class Main extends Activity {
     public void onSaveInstanceState(Bundle b) {
     	try {
 			player.save();
+			player.endGame();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

@@ -3,6 +3,7 @@ package com.episkipoe.dragon.production;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.episkipoe.dragon.agents.Agent;
 import com.episkipoe.dragon.commands.Command;
 import com.episkipoe.dragon.lairs.Lair;
 import com.episkipoe.dragon.rooms.Room;
@@ -18,9 +19,9 @@ public abstract class ProductionRoom extends Room {
 		produces = new ProductionList();
 	}
 	
-	final public ProductionList getProductionList() { return produces; }
-
 	abstract public List<ProductionCommand> getProductionCommands(); 
+	
+	final public ProductionList getProductionList() { return produces; }
 	
 	protected void prepareCommands() {
 		commandList = new ArrayList<Command>();
@@ -29,7 +30,7 @@ public abstract class ProductionRoom extends Room {
 	
 	final public List<Command> getProductionRoomCommands() {
 		List<Command> cmds = new ArrayList<Command>();
-		switch(lair.getOwner().getRelationship()) {
+		switch(Agent.getRelationship(lair.getOwner())) {
 		case PLAYER:
 			List<ProductionCommand> productionCommands = getProductionCommands();
 			if(productionInProgress) {

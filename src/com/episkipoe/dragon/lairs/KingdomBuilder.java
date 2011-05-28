@@ -17,15 +17,17 @@ public class KingdomBuilder {
 		Agent owner = lair.getOwner();
 		LairList kingdom = new LairList(owner);
 		kingdom.addLair(lair);
-		lair.postCreate();
+		lair.postCreate(owner.getLevel());
 		List<Class<? extends Lair>> subLairs = lair.getSubLairs();
 		if(subLairs.size()<=0) { return kingdom; }
-		for(int i=0; i < owner.getLevel() ; i++) {
+		int numLairs = rnd.nextInt(owner.getLevel())+1;
+		for(int i=0; i < numLairs ; i++) {
 			idx = rnd.nextInt(subLairs.size());
 			Lair newLair = subLairs.get(idx).newInstance();
 			newLair.setOwner(owner);
 			kingdom.addLair(newLair);
-			newLair.postCreate();
+			int lairLevel = Math.max(0, (rnd.nextInt(owner.getLevel())-5));
+			newLair.postCreate(lairLevel);
 		}
 
 		return kingdom;

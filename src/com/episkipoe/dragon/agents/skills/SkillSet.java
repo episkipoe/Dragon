@@ -10,18 +10,14 @@ import com.episkipoe.dragon.agents.Agent;
 public class SkillSet implements Serializable {
 	private static final long serialVersionUID = 763966347600592241L;
 	
-	Agent agent;
-	public SkillSet(Agent agent) {
-		this.agent = agent;
+	public SkillSet() {
 		resetSkills();
 	}
-	public SkillSet(Agent agent, Skill s) {
-		this.agent = agent;
+	public SkillSet(Skill s) {
 		resetSkills();
 		add(s);
 	}
-	public SkillSet(Agent agent, Collection<Skill> sList) {
-		this.agent = agent;
+	public SkillSet(Collection<Skill> sList) {
 		resetSkills();
 		for(Skill s: sList) add(s);
 	}
@@ -51,9 +47,19 @@ public class SkillSet implements Serializable {
 		total/=numSkills();
 		return total;
 	}
-	
-	//TODO:  items that modify skills
-	public int totalModifiers() { return 0; }
 
-	public Collection<Skill> getSkills () { return skills.values(); }	
+	public Collection<Skill> getSkills () { return skills.values(); }
+	
+	public SkillSet getSkills(SkillSet required) {
+		SkillSet subSet = new SkillSet();
+		for(Skill s : required.getSkills()) {
+			if(!hasSkill(s.getClass())) continue;
+			subSet.add(getSkill(s.getClass()));
+		}
+		return subSet;
+	}
+	
+	public void applyModifiers(Agent agent) {
+		
+	}	
 }

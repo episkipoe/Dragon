@@ -2,9 +2,9 @@ package com.episkipoe.dragon.treasure;
 
 import com.episkipoe.dragon.Main;
 import com.episkipoe.dragon.agents.Agent;
-import com.episkipoe.dragon.events.Event;
+import com.episkipoe.dragon.agents.AgentEvent;
 
-public class AddTreasureEvent extends Event {
+public class AddTreasureEvent extends AgentEvent {
 	private static final long serialVersionUID = 4572554619595924071L;
 
 	boolean notify=false;

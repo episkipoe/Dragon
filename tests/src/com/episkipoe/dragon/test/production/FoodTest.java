@@ -44,7 +44,7 @@ public class FoodTest extends android.test.ActivityInstrumentationTestCase2<Main
 		ProductionCommand farmGrain = farm.getProductionCommands().get(0);
 		assertTrue(farmGrain.getProduct().getProduces().numTreasures() == 1);
 		assertTrue(CommerceUtils.canAfford(castle, farmGrain.getProduct().getCost()));
-		farmGrain.getProduct().produce(kingdom, castle);
+		farmGrain.getProduct().produce(castle);
 		assertTrue(farmGrain.getProduct().getProduces().numTreasures() == 1);
 		assertTrue(farmGrain.getProduct().getProduces().has(GrainTreasure.class));
 		assertTrue(store.has(GrainTreasure.class));
@@ -58,13 +58,13 @@ public class FoodTest extends android.test.ActivityInstrumentationTestCase2<Main
 		assertTrue(brewery != null);
 		ProductionCommand brewAle = brewery.getProductionCommands().get(0);
 		assertTrue(CommerceUtils.canAfford(castle, brewAle.getProduct().getCost()));
-		brewAle.getProduct().produce(kingdom, castle);
+		brewAle.getProduct().produce(castle);
 		assertTrue(store.has(AleTreasure.class));
 		//System.out.println("has " + store.get(GrainTreasure.class).qty + " grain");
 		assertTrue(store.get(GrainTreasure.class).qty == 1);
-		brewAle.getProduct().produce(kingdom, castle);
+		brewAle.getProduct().produce(castle);
 		assertTrue(store.get(AleTreasure.class).qty == 2);
-		brewAle.getProduct().produce(kingdom, castle);  //this should fail since we only have 2 grain
+		brewAle.getProduct().produce(castle);  //this should fail since we only have 2 grain
 		assertTrue(store.get(AleTreasure.class).qty == 2);
 	}
 }

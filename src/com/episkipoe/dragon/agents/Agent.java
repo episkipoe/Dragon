@@ -1,14 +1,13 @@
 package com.episkipoe.dragon.agents;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 
 import com.episkipoe.dragon.agents.attributes.AttributeSet;
 import com.episkipoe.dragon.agents.classes.AgentClassSet;
 import com.episkipoe.dragon.agents.skills.Skill;
 import com.episkipoe.dragon.agents.skills.SkillSet;
 import com.episkipoe.dragon.events.Event;
+import com.episkipoe.dragon.events.EventQueue;
 import com.episkipoe.dragon.rooms.Room;
 import com.episkipoe.dragon.treasure.TreasureList;
 
@@ -96,11 +95,21 @@ public abstract class Agent implements Serializable {
 	
 	public enum Relationship { PLAYER, ENEMY, NEUTRAL, ALLY }
 	private Relationship relationship=Relationship.NEUTRAL;
-	final public Relationship getRelationship() { return relationship; }
+	final protected Relationship getRelationship() { return relationship; }
 	final public void setRelationship(Relationship relationship) {
 		this.relationship = relationship;
 	}
+	final public static Relationship getRelationship(Agent other) {
+		if(other==null) return Relationship.NEUTRAL;
+		return other.getRelationship();
+	}
 
+	private AgentAction action = null;
+	final public AgentAction getAction() {
+		if(action==null) action = new AgentAction(this);
+		return action;
+	}
+	
 	private AgentClassSet classSet = null;
 	final public AgentClassSet getClassSet() {
 		if(classSet==null) classSet = new AgentClassSet();
@@ -115,7 +124,7 @@ public abstract class Agent implements Serializable {
 	
 	private SkillSet skillSet = null;
 	final public SkillSet getSkillSet() {
-		if(skillSet == null) skillSet = new SkillSet(this);
+		if(skillSet == null) skillSet = new SkillSet();
 		return skillSet;
 	}
 
@@ -131,11 +140,13 @@ public abstract class Agent implements Serializable {
 		return inventory;
 	}
 	
-	private List<Event> events=null;
-	public List<Event> getEvents() {
-		if(events==null) events = new ArrayList<Event>();
+	private EventQueue events=null;
+	public EventQueue getEvents() {
+		if(events==null) events = new EventQueue();
 		return events;
 	}
-	public void addEvent(Event e) { getEvents().add(e); }
-	public void removeEvent(Event e) { getEvents().remove(e); }
+	public void addEvent(Event event) {
+		getEvents().add(event);
+	}
+
 }

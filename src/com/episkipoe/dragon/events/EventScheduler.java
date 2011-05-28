@@ -7,7 +7,7 @@ import com.episkipoe.dragon.Main;
 
 public class EventScheduler {
 	public static void schedule(Event event) {
-		EventQueue e = Main.player.getEventQueue();
+		EventThread e = Main.player.getEventThread();
 		e.getHandler().postDelayed(event, (long) (event.delay*1000));
 	}
 	

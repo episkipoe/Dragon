@@ -20,5 +20,6 @@ public class DragonAgent extends Agent {
 		if (type == SneakSkill.class) { return false; }
 		return super.can(type);
 	}
-	
+
+	//TODO  FireBreath at level 10
 }

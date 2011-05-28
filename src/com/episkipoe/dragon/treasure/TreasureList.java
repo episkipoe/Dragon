@@ -12,15 +12,25 @@ import org.apache.commons.lang.StringUtils;
 
 import com.episkipoe.dragon.agents.Agent;
 
+/**
+ *  A list of {@link Treasure}s
+ *
+ */
 public class TreasureList implements Serializable {
 	private static final long serialVersionUID = 2490515336611342772L;
 	
 	public TreasureList() {
 		treasures = new HashMap<Class<? extends Treasure>,Treasure>();
 	}
-	public TreasureList(TreasureList orig) {
+	
+	public TreasureList(TreasureList other) {
 		treasures = new HashMap<Class<? extends Treasure>,Treasure>();
-		add(orig);
+		add(other);
+	}
+	
+	public TreasureList(Treasure treasure) {
+		treasures = new HashMap<Class<? extends Treasure>,Treasure>();
+		add(treasure);
 	}
 	
 	public String getName() { return "View Treasures"; }

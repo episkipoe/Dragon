@@ -38,7 +38,10 @@ public abstract class AgentClass implements Serializable {
 		if(getSecondarySkills() != null && getSecondarySkills().contains(skill)) { return getLevel() * 2; }
 		return 0;
 	}
-	public boolean enablesSkill(Class<? extends Skill> skill) { return false; }
+	public boolean enablesSkill(Class<? extends Skill> skill) { 
+		if(getPrimarySkills() != null && getPrimarySkills().contains(skill)) { return true; }
+		return false; 
+	}
 	
 	/**
 	 * Called after new level is applied, any specific benefits should occur here

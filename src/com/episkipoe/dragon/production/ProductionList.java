@@ -10,8 +10,6 @@ import java.util.Random;
 import com.episkipoe.dragon.Main;
 import com.episkipoe.dragon.lairs.Lair;
 import com.episkipoe.dragon.lairs.LairList;
-import com.episkipoe.dragon.treasure.Treasure;
-import com.episkipoe.dragon.treasure.TreasureList;
 
 public class ProductionList implements Serializable {
 	private static final long serialVersionUID = 1852921798653586688L;
@@ -36,17 +34,9 @@ public class ProductionList implements Serializable {
 		products.add(p);
 	}
 	
-	public Product addProduct(Treasure resource) {
-		TreasureList list = new TreasureList();
-		list.add(resource);
-		Product p = new Product(list);
-		products.add(p);
-		return p;
-	}
-	
-	public void scheduleProduction(LairList kingdom, Lair from, Product p) {
+	public void scheduleProduction(Lair from, Product p) {
 		if(!products.contains(p)) return;
-		new ProductionEvent(Main.player.getPlayerAgent(), kingdom, from, p);
+		new ProductionEvent(Main.player.getPlayerAgent(), from, p);
 	}
 
 	public void produce(LairList kingdom, Lair from) {
@@ -56,7 +46,7 @@ public class ProductionList implements Serializable {
 				double probability = productionProbability.get(p);
 				if(probability < rnd.nextDouble()*100.0) continue;
 			}
-			p.produce(kingdom, from);
+			p.produce(from);
 		}
 	}
 }

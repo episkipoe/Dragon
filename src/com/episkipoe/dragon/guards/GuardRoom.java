@@ -1,5 +1,7 @@
 package com.episkipoe.dragon.guards;
 
+import java.util.Random;
+
 import com.episkipoe.dragon.commands.Command;
 import com.episkipoe.dragon.commerce.Cost;
 import com.episkipoe.dragon.lairs.Lair;
@@ -27,5 +29,15 @@ public class GuardRoom extends Room {
 		tl.add(new WoodTreasure());
 		Cost cost = new Cost(tl, 4);	
 		return new BuildRoomCommand(room, cost);		
+	}
+	
+	@Override
+	public void postCreate(int level) {
+		Random rnd = new Random();
+		int numGuards = rnd.nextInt(level);
+		for(int i = 0 ; i < numGuards ; i++) {
+			int agentLevel = rnd.nextInt(level);
+			GuardClass.create(this, agentLevel);
+		}
 	}
 }

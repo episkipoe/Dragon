@@ -24,17 +24,18 @@ public abstract class Lair extends CommandPage {
 	 * Methods a lair must implement
 	 */
 	abstract public Command getBuildCommand(LairList kingdom) ;
+	abstract public void postCreate(int level) ;
 	
 	/*
 	 * Methods a lair may implement
 	 */
 	public List<Class<? extends Room>> getAllowedRooms() { return getCommonRooms(); }
+	public boolean createOwner() { return false; }
+	public List<Class<? extends Lair>> getSubLairs() { return null; }
 	public String getDescription() { 
 		return getRoomSet().numRooms() + " buildings";
 	}
-	public boolean createOwner() { return false; }
-	public List<Class<? extends Lair>> getSubLairs() { return null; }
-	public void postCreate() { }
+
 
 	/*
 	 *  Utility methods
@@ -47,7 +48,7 @@ public abstract class Lair extends CommandPage {
 	final public LairList getKingdom() { return kingdom; }
 	final public void setKingdom(LairList kingdom) { this.kingdom = kingdom; }
 	final public String getOwnerAndType() { return owner.getName() + "'s" + getCommandName(); }
-	final public boolean isMine() { return (owner.getRelationship() == Relationship.PLAYER); }
+	final public boolean isMine() { return (Agent.getRelationship(owner) == Relationship.PLAYER); }
 	
 	private LairProperties properties=null;
 	final public LairProperties getProperties() {
@@ -72,8 +73,10 @@ public abstract class Lair extends CommandPage {
 		if(getRoomSet().numRooms() > 0) {
 			commandList.addAll(getRoomSet().getRooms());
 		}
-		List<Command> buildCommands = getRoomBuildCommands();
-		if(buildCommands != null) commandList.addAll(buildCommands); 
+		if(isMine()) {
+			List<Command> buildCommands = getRoomBuildCommands();
+			if(buildCommands != null) commandList.addAll(buildCommands); 
+		}
 	}
 	
 	final public List<Class<? extends Room>> getCommonRooms() {
@@ -101,10 +104,19 @@ public abstract class Lair extends CommandPage {
 		}
 		return cmds;
 	}
-	final public void addAllRooms() {
-		for (Command c: getRoomBuildCommands()) {
-			c.onClick(null);
+	
+	public void addRoomList(List<Class<? extends Room>> roomsToBuild, int level) {
+		for(Class<? extends Room> type: roomsToBuild) {
+			try {
+				Room newRoom = type.newInstance();
+				newRoom.setLair(this);
+				newRoom.postCreate(level);
+				getRoomSet().add(newRoom);	
+			} catch (Exception e) {
+				System.out.println("Problem adding room: " + e.getMessage());
+			} 
 		}
 	}
+
 }
 

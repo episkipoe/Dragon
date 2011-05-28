@@ -7,6 +7,7 @@ import com.episkipoe.dragon.agents.Agent;
 import com.episkipoe.dragon.agents.Agent.Relationship;
 import com.episkipoe.dragon.commands.Command;
 import com.episkipoe.dragon.commands.CommandPage;
+import com.episkipoe.dragon.lairs.forest.ForestLair;
 import com.episkipoe.dragon.lairs.mountain.MountainLair;
 import com.episkipoe.dragon.lairs.royal.CastleLair;
 import com.episkipoe.dragon.lairs.royal.CityLair;
@@ -21,7 +22,7 @@ public class LairList extends CommandPage {
 	}
 	
 	public String getCommandName() { 
-		if(owner.getRelationship()==Relationship.PLAYER) {
+		if(Agent.getRelationship(owner)==Relationship.PLAYER) {
 			return "Explore your realm"; 
 		} else {
 			return "Visit " + owner.getName(); 
@@ -30,7 +31,7 @@ public class LairList extends CommandPage {
 	public String getDescription() {
 		return numLairs() + " states";
 	}
-	public boolean isMine() { return (owner.getRelationship() == Relationship.PLAYER); }
+	public boolean isMine() { return (Agent.getRelationship(owner) == Relationship.PLAYER); }
 	
 	List<Lair> lairs = null;
 	public void addLair(Lair l) { 
@@ -68,9 +69,10 @@ public class LairList extends CommandPage {
 	
 	public static List<Class<? extends Lair>> availableTypes() {
 		List<Class<? extends Lair>> lairs = new ArrayList<Class<? extends Lair>>();
-		lairs.add(MountainLair.class);
 		lairs.add(CastleLair.class);
 		lairs.add(CityLair.class);
+		lairs.add(ForestLair.class);
+		lairs.add(MountainLair.class);
 		lairs.add(VillageLair.class);
 		return lairs;
 	}
@@ -88,5 +90,6 @@ public class LairList extends CommandPage {
 		}
 		return lairs;
 	}
+
 
 }
