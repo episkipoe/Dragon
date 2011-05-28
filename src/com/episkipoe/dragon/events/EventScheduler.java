@@ -2,10 +2,12 @@ package com.episkipoe.dragon.events;
 
 import java.util.Timer;
 
+import com.episkipoe.dragon.Main;
+
 public class EventScheduler {
 	public static void schedule(Event event, int afterNSeconds) {
-		Timer timer = new Timer(true);
-		timer.schedule(event, (long) (afterNSeconds*1000));
+		EventQueue e = Main.player.getEventQueue();
+		e.getHandler().postDelayed(event, (long) (afterNSeconds*1000));
 	}
 	
 	public static Timer repeat(Event event, int everyNSeconds) {

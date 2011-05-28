@@ -14,9 +14,16 @@ public class PlayerUtils {
 	public static void initializeTestPlayer(Player player, int nearbyKingdoms) throws Exception {
 		List<Class<? extends Lair>> lairs = LairList.availableTypes();
 		for (Class<? extends Lair> type : lairs) {
-			Lair l = type.newInstance();
-			l.setOwner(player.getPlayerAgent());
-			player.getLairList().addLair(l);
+			Lair l;
+			try {
+				l = type.newInstance();
+				l.setOwner(player.getPlayerAgent());
+				player.getLairList().addLair(l);
+			} catch(Exception e) {
+				System.out.println("Failed to add lair of type: " + type.toString() + " because " + e.getMessage());
+				continue;
+			}
+			//l.addAllRooms();
 		}
 		
 		for(int i=0 ; i<nearbyKingdoms ; i++) {

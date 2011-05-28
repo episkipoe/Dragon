@@ -1,8 +1,6 @@
 package com.episkipoe.dragon.agents.classes;
 
-import com.episkipoe.dragon.agents.Agent;
-
-public abstract class MinionClass extends Agent {
+public abstract class MinionClass extends AgentClass {
 	public MinionClass(int level) {
 		super(level);
 	}

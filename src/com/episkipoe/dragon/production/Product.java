@@ -1,12 +1,15 @@
 package com.episkipoe.dragon.production;
 
+import java.io.Serializable;
+
 import com.episkipoe.dragon.commerce.CommerceUtils;
 import com.episkipoe.dragon.commerce.Cost;
 import com.episkipoe.dragon.lairs.Lair;
 import com.episkipoe.dragon.lairs.LairList;
 import com.episkipoe.dragon.treasure.TreasureList;
 
-public class Product {
+public class Product implements Serializable {
+	private static final long serialVersionUID = 5792458099565230054L;
 	private Cost requires;
 	private TreasureList produces;
 	public Product(Cost requires, TreasureList produces) {

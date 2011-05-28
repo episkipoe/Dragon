@@ -2,7 +2,6 @@ package com.episkipoe.dragon.agents;
 
 import java.io.Serializable;
 
-import com.episkipoe.dragon.Main;
 import com.episkipoe.dragon.agents.attributes.AttributeSet;
 import com.episkipoe.dragon.agents.classes.AgentClassSet;
 import com.episkipoe.dragon.agents.skills.Skill;
@@ -74,15 +73,17 @@ public abstract class Agent implements Serializable {
 		return getName() + ": a level " + level + " " + getType();
 	}
 
-	private int level=0;
+	private int level=0, XP=0;
 	final public int getLevel() { return level; }
-	final public void levelUp() {
+	final private void levelUp() {
 		level++;
 		getAttributeSet().levelUp(this);
-		if(Main.player != null && this == Main.player.getPlayerAgent()) { 
-			Main.player.setCharacterLabel();
-		}
 		postLevelUp();
+	}
+	final public void awardXP(int XP) { 
+		this.XP += XP;
+		int nextLevelAt = 10+2*(level * level);
+		if(this.XP >= nextLevelAt) levelUp();
 	}
 	
 	private Room location=null;
@@ -119,5 +120,4 @@ public abstract class Agent implements Serializable {
 		if(mate==null) mate = new AgentMate(this);
 		return mate;
 	}
-
 }

@@ -9,10 +9,12 @@ import com.episkipoe.dragon.agents.species.DwarfAgent;
 import com.episkipoe.dragon.commands.Command;
 import com.episkipoe.dragon.commerce.Cost;
 import com.episkipoe.dragon.lairs.Lair;
+import com.episkipoe.dragon.production.building.IronTreasure;
 import com.episkipoe.dragon.production.food.AleTreasure;
 import com.episkipoe.dragon.rooms.BuildRoomCommand;
 import com.episkipoe.dragon.rooms.HireCommand;
 import com.episkipoe.dragon.rooms.Room;
+import com.episkipoe.dragon.treasure.gems.GoldTreasure;
 import com.episkipoe.dragon.treasure.gems.MineCommand;
 
 
@@ -36,7 +38,8 @@ public class MineRoom extends Room {
 	protected void prepareCommands() {
 		commandList = new ArrayList<Command>();
 		if(lair.getOwner().getRelationship() == Relationship.PLAYER) {
-			commandList.add(new MineCommand(lair));
+			commandList.add(new MineCommand(lair, new GoldTreasure(10)));
+			commandList.add(new MineCommand(lair, new IronTreasure(1)));
 			{
 				TreasureList tl = new TreasureList();
 				tl.add(new AleTreasure());

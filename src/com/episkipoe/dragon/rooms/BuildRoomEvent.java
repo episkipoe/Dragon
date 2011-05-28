@@ -1,5 +1,6 @@
 package com.episkipoe.dragon.rooms;
 
+import com.episkipoe.dragon.Main;
 import com.episkipoe.dragon.commerce.CommerceEvent;
 import com.episkipoe.dragon.commerce.Cost;
 
@@ -12,7 +13,8 @@ public class BuildRoomEvent extends CommerceEvent {
 	public void run() {
 		if(!subtractCost()) return;
 		room.getLair().getRoomSet().add(room);
-		//TODO refresh display 
+		if(notify) Main.player.popupNotify("Room construction complete");
+		Main.player.getPageManager().refresh();
 	}
 
 }

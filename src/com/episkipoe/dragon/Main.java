@@ -12,17 +12,18 @@ public class Main extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         try {
-        	player = Player.load(this);
-		} catch (Exception e) {
-			System.out.println("Could not load player: " + e.getMessage());
-			player = null;
-		}
-		try {
-	    	if(player==null) player = new Player(this);
+        	Player.loadGame(this);
 		} catch (Exception e) {
 			e.printStackTrace();
+			System.out.println("Could not load player: " + e.getMessage());
 		}
-		if(player != null) player.showMainPage();
+		if(player==null) {
+			try {
+				Player.newGame(this);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
     }
     
     @Override

@@ -1,10 +1,13 @@
 package com.episkipoe.dragon.rooms;
 
+import java.io.Serializable;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
-public class RoomSet {
+public class RoomSet implements Serializable {
+	private static final long serialVersionUID = -2653361418458383728L;
+	
 	private Map<Class<? extends Room>,Room> rooms;
 	private Map<Class<? extends Room>,Boolean> buildQueued;
 	public RoomSet() {

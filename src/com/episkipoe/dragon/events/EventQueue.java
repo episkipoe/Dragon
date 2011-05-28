@@ -1,8 +1,12 @@
 package com.episkipoe.dragon.events;
 
-import java.io.Serializable;
+import android.os.Handler;
 
-public class EventQueue implements Serializable {
-	private static final long serialVersionUID = 4018936763199025468L;
+public class EventQueue extends Thread {
+	  private Handler handler=null;
+	  public Handler getHandler() {
+		  if(handler==null) handler=new Handler();
+		  return handler;
+	  }
 
 }

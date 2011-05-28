@@ -15,13 +15,16 @@ import com.episkipoe.dragon.treasure.TreasureRoom;
 
 public abstract class Lair extends CommandPage {
 	private static final long serialVersionUID = -323992456148996830L;
-	protected Agent owner;
-	protected LairList kingdom;
-	protected Lair() {}  //TODO:  test lair with no owner
-	protected Lair(Agent owner) {
+	public Lair() {}  //TODO:  test lair with no owner
+	public Lair(Agent owner) {
 		this.owner = owner;
 	}
 
+	/*
+	 * Methods a lair must implement
+	 */
+	abstract public Command getBuildCommand(LairList kingdom) ;
+	
 	/*
 	 * Methods a lair may implement
 	 */
@@ -37,8 +40,10 @@ public abstract class Lair extends CommandPage {
 	 *  Utility methods
 	 */
 	
+	private Agent owner;
 	final public Agent getOwner() { return owner; }
 	final public void setOwner(Agent owner) { this.owner = owner; }
+	private LairList kingdom;
 	final public LairList getKingdom() { return kingdom; }
 	final public void setKingdom(LairList kingdom) { this.kingdom = kingdom; }
 	final public String getOwnerAndType() { return owner.getName() + "'s" + getCommandName(); }
@@ -95,6 +100,11 @@ public abstract class Lair extends CommandPage {
 			}
 		}
 		return cmds;
+	}
+	final public void addAllRooms() {
+		for (Command c: getRoomBuildCommands()) {
+			c.onClick(null);
+		}
 	}
 }
 

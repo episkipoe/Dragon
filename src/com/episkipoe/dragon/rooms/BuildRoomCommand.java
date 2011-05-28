@@ -3,11 +3,11 @@ package com.episkipoe.dragon.rooms;
 import android.view.View;
 
 import com.episkipoe.dragon.Main;
-import com.episkipoe.dragon.commerce.CommerceCommand;
+import com.episkipoe.dragon.commerce.RoomCommerceCommand;
 import com.episkipoe.dragon.commerce.Cost;
 import com.episkipoe.dragon.events.EventScheduler;
 
-public class BuildRoomCommand extends CommerceCommand {
+public class BuildRoomCommand extends RoomCommerceCommand {
 	private static final long serialVersionUID = -2659403363456605251L;
 	private boolean scheduled=false;
 	public BuildRoomCommand(Room room, Cost cost) {

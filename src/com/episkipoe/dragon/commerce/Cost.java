@@ -1,8 +1,12 @@
 package com.episkipoe.dragon.commerce;
 
+import java.io.Serializable;
+
 import com.episkipoe.dragon.treasure.TreasureList;
 
-public class Cost {
+public class Cost implements Serializable {
+	private static final long serialVersionUID = -3167521279719829670L;
+	
 	private TreasureList requirements=null;
 	private int seconds=0;
 

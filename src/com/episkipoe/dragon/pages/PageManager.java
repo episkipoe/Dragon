@@ -21,6 +21,7 @@ public class PageManager {
 		this.player = player;
 	}
 
+	View rootView=null;
 	int pageDepth=0;
 	public void setView(View view) {
 		ScrollView scrollView = new ScrollView(player.getActivity());
@@ -46,6 +47,7 @@ public class PageManager {
 	}
 
 	public void next(View view) {
+		player.setMainTitle();
 		flipper.addView(view);
 		flipper.setInAnimation(inFromRightAnimation());
 		flipper.setOutAnimation(outToLeftAnimation());
@@ -62,11 +64,13 @@ public class PageManager {
 
 	private void back() {
 		if(pageDepth<=0) return; 
+		player.setMainTitle();
 		flipper.setInAnimation(inFromLeftAnimation());
 		flipper.setOutAnimation(outToRightAnimation());
 		flipper.showPrevious();
 		flipper.removeViewAt(pageDepth);
 		pageDepth--;
+		refresh();
 	}
 
 	private class BackClick implements View.OnClickListener {

@@ -1,8 +1,13 @@
 package com.episkipoe.dragon.agents.classes;
 
-import com.episkipoe.dragon.agents.Agent;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
-public class KnightClass extends Agent {
+import com.episkipoe.dragon.agents.skills.BraverySkill;
+import com.episkipoe.dragon.agents.skills.Skill;
+
+public class KnightClass extends AgentClass {
 	private static final long serialVersionUID = -612795873276084742L;
 	
 	public KnightClass(int level) {
@@ -10,5 +15,11 @@ public class KnightClass extends Agent {
 	}
 
 	@Override
-	public String getType() { return "Knight"; } 
+	public String getType() { return "Knight"; }
+
+	public Collection<Class<? extends Skill>> getPrimarySkills() { 
+		List<Class<? extends Skill>> skills = new ArrayList<Class<? extends Skill>>();
+		skills.add(BraverySkill.class);
+		return skills; 
+	}
 }

@@ -1,18 +1,20 @@
-package com.episkipoe.dragon.lairs.royal;
+package com.episkipoe.dragon.lairs;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import com.episkipoe.dragon.Main;
 import com.episkipoe.dragon.agents.Agent;
-import com.episkipoe.dragon.lairs.Lair;
+import com.episkipoe.dragon.commands.Command;
+import com.episkipoe.dragon.commerce.Cost;
 import com.episkipoe.dragon.production.food.FarmRoom;
 import com.episkipoe.dragon.rooms.Room;
 
 public class VillageLair extends Lair {
 	private static final long serialVersionUID = 6434942538638628956L;
 
-	protected VillageLair() { }
-	protected VillageLair(Agent owner) {
+	public VillageLair() { }
+	public VillageLair(Agent owner) {
 		super(owner);
 	}
 
@@ -26,4 +28,10 @@ public class VillageLair extends Lair {
 		return rooms; 
 	}
 
+	@Override
+	public Command getBuildCommand(LairList kingdom) {
+		VillageLair lair = new VillageLair(Main.player.getPlayerAgent());
+		Cost cost = new Cost(1);
+		return new BuildLairCommand(kingdom, lair, cost); 
+	}	
 }

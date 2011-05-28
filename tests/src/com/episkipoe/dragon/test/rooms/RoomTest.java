@@ -14,8 +14,8 @@ public class RoomTest extends android.test.ActivityInstrumentationTestCase2<Main
 		super("com.episkipoe.dragon", Main.class);
 	}
 	
-	public void testRoomList() {
-		Player player = new Player();
+	public void testRoomList() throws Exception {
+		Player player = new Player(this.getActivity());
 		RoomSet roomList = new RoomSet();
 		assertTrue(roomList.numRooms() == 0);
 		Lair firstLair = new MountainLair(player.getPlayerAgent());

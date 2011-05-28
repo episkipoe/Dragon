@@ -10,7 +10,8 @@ public class PlayerTest extends android.test.ActivityInstrumentationTestCase2<Ma
 	}
 
 	public void testKingdomCreation() throws Exception {
-		Player testAddPlayer = new Player();
+		Player testAddPlayer = new Player(this.getActivity());
+		testAddPlayer.getNeighboringKingdoms().clear();
 		int nearByKingdoms=3;
 		PlayerUtils.initializeTestPlayer(testAddPlayer, nearByKingdoms);
 		assertTrue(testAddPlayer.getNeighboringKingdoms().size() == nearByKingdoms);

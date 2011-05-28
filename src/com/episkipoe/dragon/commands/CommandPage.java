@@ -22,7 +22,7 @@ public abstract class CommandPage extends Command {
 	final public void onClick(View view) {
 		Main.player.getPageManager().next(getPage());
 	}
-
+	protected boolean hasBackButton() { return true; }
 	final public View getPage() {
 		prepareCommands();
 		
@@ -34,7 +34,9 @@ public abstract class CommandPage extends Command {
 		layout.addView(title);
 		addHeader(layout);
 		table(layout);
-		layout.addView(Main.player.getPageManager().getBackButton());
+		if(hasBackButton()) {
+			layout.addView(Main.player.getPageManager().getBackButton());
+		}
 		return layout;
 	}
 	

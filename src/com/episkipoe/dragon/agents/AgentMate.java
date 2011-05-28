@@ -11,14 +11,32 @@ public class AgentMate implements Serializable {
 	}
 	
 	public enum Gender {MALE, FEMALE, BOTH, NEITHER};
-	Gender gender=Gender.MALE;
+	public Gender gender=Gender.MALE;
 	
-	public boolean canMate (Agent other) { return true; }
+	public Agent mother=null;
+	public Agent father=null;
+	public Agent mate (Agent other) throws Exception {
+		Class<? extends Agent> childType = thisAgent.getMateSpecies(other);
+		if(childType == null) return null;
+		Agent childFather=null;
+		Agent childMother=null;
+		if(gender==Gender.MALE) childFather=thisAgent;
+		if(other.getAgentMate().gender==Gender.MALE) childFather=other;
+		if(gender==Gender.FEMALE) childMother=thisAgent;
+		if(other.getAgentMate().gender==Gender.FEMALE) childMother=other;	
+		if(childFather==null || childMother==null) return null;
 	
-	Agent mother=null;
-	Agent father=null;
-	public Agent mate (Agent other) {
-		if(!canMate(other)) return null;
+		Agent newAgent = childType.newInstance();
+		newAgent.getAgentMate().mother = childMother;
+		newAgent.getAgentMate().father = childFather;	
 		return null;
+	}
+	
+	public Agent mate () throws Exception {
+		if(gender!=Gender.BOTH) return null;
+		Agent newAgent = thisAgent.getClass().newInstance();
+		newAgent.getAgentMate().mother = thisAgent;
+		newAgent.getAgentMate().father = thisAgent;
+		return newAgent;
 	}
 }

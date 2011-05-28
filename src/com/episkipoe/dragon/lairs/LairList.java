@@ -9,6 +9,7 @@ import com.episkipoe.dragon.commands.Command;
 import com.episkipoe.dragon.commands.CommandPage;
 import com.episkipoe.dragon.lairs.mountain.MountainLair;
 import com.episkipoe.dragon.lairs.royal.CastleLair;
+import com.episkipoe.dragon.lairs.royal.CityLair;
 import com.episkipoe.dragon.rooms.Room;
 
 public class LairList extends CommandPage {
@@ -54,7 +55,7 @@ public class LairList extends CommandPage {
 
 	LairBuilder lairBuilder=null;
 	private LairBuilder getLairBuilder() {
-		if(lairBuilder==null) lairBuilder = new LairBuilder();
+		if(lairBuilder==null) lairBuilder = new LairBuilder(this);
 		return lairBuilder;
 	}
 
@@ -69,6 +70,8 @@ public class LairList extends CommandPage {
 		List<Class<? extends Lair>> lairs = new ArrayList<Class<? extends Lair>>();
 		lairs.add(MountainLair.class);
 		lairs.add(CastleLair.class);
+		lairs.add(CityLair.class);
+		lairs.add(VillageLair.class);
 		return lairs;
 	}
 	

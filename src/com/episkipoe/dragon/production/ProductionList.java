@@ -1,5 +1,6 @@
 package com.episkipoe.dragon.production;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -12,7 +13,9 @@ import com.episkipoe.dragon.lairs.LairList;
 import com.episkipoe.dragon.treasure.Treasure;
 import com.episkipoe.dragon.treasure.TreasureList;
 
-public class ProductionList {
+public class ProductionList implements Serializable {
+	private static final long serialVersionUID = 1852921798653586688L;
+	
 	private List<Product> products;
 	private Map<Product,Double> productionProbability;
 	public ProductionList() { 
