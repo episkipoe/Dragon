@@ -11,7 +11,6 @@ import android.widget.TableRow;
 import android.widget.TextView;
 
 import com.episkipoe.dragon.Main;
-import com.episkipoe.dragon.events.Event;
 
 public abstract class Command implements View.OnClickListener, Serializable {
 	private static final long serialVersionUID = 8961022683093633641L;
@@ -71,15 +70,16 @@ public abstract class Command implements View.OnClickListener, Serializable {
 		if(lbl != null) row.addView(lbl);
 	}
 	
-	protected class ReEnable extends Event {
+	protected class ReEnable implements Runnable {
+		private static final long serialVersionUID = 7460815865921818638L;
+		
 		Command cmd;
 		public ReEnable(Command cmd) {
 			this.cmd = cmd;
 		}
-		@Override
 		public void run() {
 			cmd.enabled = true;
-			Main.player.getPageManager().refresh();
+			Main.player.refresh();
 		} 
 		
 	}

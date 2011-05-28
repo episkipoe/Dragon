@@ -5,7 +5,6 @@ import android.view.View;
 import com.episkipoe.dragon.Main;
 import com.episkipoe.dragon.commerce.RoomCommerceCommand;
 import com.episkipoe.dragon.commerce.Cost;
-import com.episkipoe.dragon.events.EventScheduler;
 
 public class BuildRoomCommand extends RoomCommerceCommand {
 	private static final long serialVersionUID = -2659403363456605251L;
@@ -16,12 +15,8 @@ public class BuildRoomCommand extends RoomCommerceCommand {
 	}
 
 	public void onClick(View v) {
-		BuildRoomEvent event = new BuildRoomEvent(room, cost, true); 
-		if(v==null) {
-			event.run();
-		} else {
-			EventScheduler.schedule(event, cost.getWaitTime());
-		}
+		BuildRoomEvent event = new BuildRoomEvent(Main.player.getPlayerAgent(), room, cost, true); 
+		if(v==null)  event.run();
 		scheduled=true;
 		room.getLair().getRoomSet().queueBuild(room.getClass());
 		Main.player.popupNotify("Build in progress");

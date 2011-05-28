@@ -5,10 +5,11 @@ import com.episkipoe.dragon.commerce.CommerceEvent;
 import com.episkipoe.dragon.commerce.Cost;
 
 public class HireEvent extends CommerceEvent {
-	Agent agent;
+	private static final long serialVersionUID = 2589104364553998816L;
+	Agent employee;
 	boolean notify;
-	public HireEvent(Room room, Agent agent, Cost cost, boolean notify) {
-		super(room, cost, notify);
+	public HireEvent(Agent agent, Room room, Agent employee, Cost cost, boolean notify) {
+		super(agent, room, cost, notify);
 		this.agent = agent;
 		this.notify = notify;
 	}
@@ -18,8 +19,9 @@ public class HireEvent extends CommerceEvent {
 		if(!subtractCost()) {
 			return;
 		}
-		room.hireAgent(agent);
-		agent.setLocation(room);
+		room.hireAgent(employee);
+		employee.setLocation(room);
+		postRun();
 	}
 
 }

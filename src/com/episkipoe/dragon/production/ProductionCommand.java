@@ -21,13 +21,10 @@ public abstract class ProductionCommand extends Command {
 		LairList kingdom = lair.getKingdom();
 		room.getProductionList().scheduleProduction(kingdom, lair, product);
 		Main.player.popupNotify(getScheduleMessage());
-		room.productionInProgress=true;
-		setEnabled(false);
-		//TODO schedule re-enabling of the command
 	}
 
 	
-	public String getScheduleMessage() { return "Production has begun"; }
+	public String getScheduleMessage() { return "Production has been scheduled"; }
 	public String getDescription() { return product.getCost().toString(); }
 	final public Product getProduct() { return product; }
 

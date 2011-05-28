@@ -123,12 +123,13 @@ public class Player implements Serializable {
 	}
 	private transient GUIHandler guiHandler;
 	public GUIHandler guiHandler() { 
-		if(guiHandler==null) guiHandler = new GUIHandler();
+		if(guiHandler==null) { guiHandler = new GUIHandler(); }
 		return guiHandler;
 	}
 	public void popupNotify(String text) {
 		GUIHandler.popupNotify(guiHandler(), text);
 	}
-	
-	
+	public void refresh() {
+		guiHandler().sendEmptyMessage(GUIHandler.REFRESH);
+	}
 }

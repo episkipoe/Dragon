@@ -7,6 +7,7 @@ import com.episkipoe.dragon.treasure.TreasureList;
 import com.episkipoe.dragon.treasure.TreasureRoom;
 
 public class CommerceUtils {
+	//TODO:  check agent inventory
 	public static boolean canAfford(LairList kingdom, Cost cost) {
 		if(cost.getRequirements().isEmpty()) return true;
 		TreasureList needToHave = new TreasureList(cost.getRequirements());

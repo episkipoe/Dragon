@@ -11,7 +11,9 @@ import android.widget.Button;
 import android.widget.ScrollView;
 import android.widget.ViewFlipper;
 
+import com.episkipoe.dragon.Main;
 import com.episkipoe.dragon.commands.CommandPage;
+import com.episkipoe.dragon.events.GUIHandler;
 import com.episkipoe.dragon.player.Player;
 
 public class PageManager {
@@ -62,6 +64,7 @@ public class PageManager {
 		return btn;
 	}	
 
+	private static final int TRANSITION_TIME=500;
 	private void back() {
 		if(pageDepth<=0) return; 
 		player.setMainTitle();
@@ -70,7 +73,7 @@ public class PageManager {
 		flipper.showPrevious();
 		flipper.removeViewAt(pageDepth);
 		pageDepth--;
-		refresh();
+		Main.player.guiHandler().sendEmptyMessageDelayed(GUIHandler.REFRESH, TRANSITION_TIME+10);
 	}
 
 	private class BackClick implements View.OnClickListener {
@@ -90,7 +93,7 @@ public class PageManager {
 			Animation.RELATIVE_TO_PARENT, 0.0f,
 			Animation.RELATIVE_TO_PARENT, 0.0f,
 			Animation.RELATIVE_TO_PARENT, 0.0f);
-		inFromRight.setDuration(500);
+		inFromRight.setDuration(TRANSITION_TIME);
 		inFromRight.setInterpolator(new AccelerateInterpolator());
 		return inFromRight;
 	}
@@ -101,7 +104,7 @@ public class PageManager {
 			Animation.RELATIVE_TO_PARENT, -1.0f,
 			Animation.RELATIVE_TO_PARENT, 0.0f,
 			Animation.RELATIVE_TO_PARENT, 0.0f);
-		outtoLeft.setDuration(500);
+		outtoLeft.setDuration(TRANSITION_TIME);
 		outtoLeft.setInterpolator(new AccelerateInterpolator());
 		return outtoLeft;
 	}
@@ -112,7 +115,7 @@ public class PageManager {
 			Animation.RELATIVE_TO_PARENT, 0.0f,
 			Animation.RELATIVE_TO_PARENT, 0.0f,
 			Animation.RELATIVE_TO_PARENT, 0.0f);
-		inFromLeft.setDuration(500);
+		inFromLeft.setDuration(TRANSITION_TIME);
 		inFromLeft.setInterpolator(new AccelerateInterpolator());
 		return inFromLeft;
 	}
@@ -123,7 +126,7 @@ public class PageManager {
 			Animation.RELATIVE_TO_PARENT, +1.0f,
 			Animation.RELATIVE_TO_PARENT, 0.0f,
 			Animation.RELATIVE_TO_PARENT, 0.0f);
-		outtoRight.setDuration(500);
+		outtoRight.setDuration(TRANSITION_TIME);
 		outtoRight.setInterpolator(new AccelerateInterpolator());
 		return outtoRight;
 	}

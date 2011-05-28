@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
-import com.episkipoe.dragon.events.EventScheduler;
+import com.episkipoe.dragon.Main;
 import com.episkipoe.dragon.lairs.Lair;
 import com.episkipoe.dragon.lairs.LairList;
 import com.episkipoe.dragon.treasure.Treasure;
@@ -46,8 +46,7 @@ public class ProductionList implements Serializable {
 	
 	public void scheduleProduction(LairList kingdom, Lair from, Product p) {
 		if(!products.contains(p)) return;
-		ProductionEvent event = new ProductionEvent(kingdom, from, p);
-		EventScheduler.schedule(event, p.getCost().getWaitTime());
+		new ProductionEvent(Main.player.getPlayerAgent(), kingdom, from, p);
 	}
 
 	public void produce(LairList kingdom, Lair from) {

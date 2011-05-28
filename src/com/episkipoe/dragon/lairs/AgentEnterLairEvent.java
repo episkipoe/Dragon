@@ -10,9 +10,11 @@ import com.episkipoe.dragon.guards.GuardRoom;
 import com.episkipoe.dragon.rooms.Room;
 
 public class AgentEnterLairEvent extends Event {
-	private Agent agent;
+	private static final long serialVersionUID = -6119531399118569988L;
+	
 	private Lair lair;
-	public AgentEnterLairEvent(Agent agent, Lair lair) {
+	public AgentEnterLairEvent(Agent agent, Lair lair, int delay) {
+		super(agent, delay);
 		this.agent = agent;
 		this.lair = lair;
 	}
@@ -28,6 +30,7 @@ public class AgentEnterLairEvent extends Event {
 		if(SkillUtils.skillCheck(fear, guardRoom.level)) return ;
 		
 		//TODO:  fear check / combat / fail / notify / etc
+		postRun();
 	}
 
 	

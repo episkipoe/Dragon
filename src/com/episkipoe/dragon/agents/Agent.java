@@ -1,12 +1,16 @@
 package com.episkipoe.dragon.agents;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.episkipoe.dragon.agents.attributes.AttributeSet;
 import com.episkipoe.dragon.agents.classes.AgentClassSet;
 import com.episkipoe.dragon.agents.skills.Skill;
 import com.episkipoe.dragon.agents.skills.SkillSet;
+import com.episkipoe.dragon.events.Event;
 import com.episkipoe.dragon.rooms.Room;
+import com.episkipoe.dragon.treasure.TreasureList;
 
 
 public abstract class Agent implements Serializable {
@@ -115,9 +119,23 @@ public abstract class Agent implements Serializable {
 		return skillSet;
 	}
 
-	private AgentMate mate;
+	private AgentMate mate=null;
 	final public AgentMate getAgentMate() {
 		if(mate==null) mate = new AgentMate(this);
 		return mate;
 	}
+	
+	private TreasureList inventory=null;
+	final public TreasureList getInventory() {
+		if(inventory==null) inventory = new TreasureList();
+		return inventory;
+	}
+	
+	private List<Event> events=null;
+	public List<Event> getEvents() {
+		if(events==null) events = new ArrayList<Event>();
+		return events;
+	}
+	public void addEvent(Event e) { getEvents().add(e); }
+	public void removeEvent(Event e) { getEvents().remove(e); }
 }
