@@ -30,5 +30,5 @@ public class RoomSet implements Serializable {
 	public boolean buildQueued(Class<? extends Room> type) {
 		return (buildQueued.containsKey(type)); 
 	}
-	
+
 }

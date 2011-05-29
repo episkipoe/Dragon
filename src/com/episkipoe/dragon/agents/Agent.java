@@ -3,6 +3,7 @@ package com.episkipoe.dragon.agents;
 import java.io.Serializable;
 
 import com.episkipoe.dragon.agents.attributes.AttributeSet;
+import com.episkipoe.dragon.agents.classes.AgentClass;
 import com.episkipoe.dragon.agents.classes.AgentClassSet;
 import com.episkipoe.dragon.agents.skills.Skill;
 import com.episkipoe.dragon.agents.skills.SkillSet;
@@ -41,6 +42,9 @@ public abstract class Agent implements Serializable {
 			s = type.newInstance();
 		} catch(Exception e) {
 			return false;
+		}
+		for(AgentClass c : getClassSet().getAgentClasses()) {
+			if(c.enablesSkill(type)) return true;
 		}
 		return s.canByDefault();
 	}

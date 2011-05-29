@@ -5,34 +5,68 @@ import java.util.Random;
 import com.episkipoe.dragon.agents.Agent;
 
 public class SkillUtils {
-	public static boolean skillCheck(SkillSet skills, int difficulty) {
+	private static boolean skillCheck(SkillSet skills, int difficulty) {
 		Random rnd = new Random();
 		int avgSkill = (int)skills.averageSkill();
-		if(avgSkill<=0) return false;
+		if(difficulty<=20) {
+			int luck = rnd.nextInt(20);
+			if(luck==0) return false;
+			if(luck==19) return true;
+		}
+		if(avgSkill<=0) {
+			return false;
+		}
 		int value = rnd.nextInt(avgSkill);
 		return (value>difficulty);
 	}
+	
+	private static void useSkills(Agent agent, SkillSet skills, int difficulty) {
+		int avgSkill = (int)skills.averageSkill();
+		if(difficulty>(avgSkill+20)) return ; //Trying something too hard 
+		agent.getSkillSet().awardXP(skills, 1);
+	}
+	
 	public static boolean skillCheck(Agent agent, SkillSet required, int difficulty) {
+		if(!required.can(agent)) return false;
 		SkillSet agentSkills = agent.getSkillSet().getSkills(required);
+		useSkills(agent, agentSkills, difficulty);
 		agentSkills.applyModifiers(agent);
 		return skillCheck(agentSkills, difficulty);
 	}
+	
 	public static boolean skillCheck(Agent agent, Class<? extends Skill> required, int difficulty) {
-		int skillLevel = agent.getSkillSet().getSkillLevel(required);
-		if(skillLevel<=0) return false;
-		Random rnd = new Random();
-		int value = rnd.nextInt(skillLevel);
-		return (value>difficulty);
+		try {
+			SkillSet skills = new SkillSet(required.newInstance());
+			return skillCheck(agent, skills, difficulty);
+		} catch(Exception e) {
+			return false;
+		}
 	}
-	public static boolean skillCheck(SkillSet a, SkillSet b) {
-		//TODO  modifiers for agent vs agent
+	
+	/**
+	 * 
+	 * @return true if a beats b
+	 */
+	public static boolean skillCheck(Agent agentA, SkillSet skillsA, Agent agentB, SkillSet skillsB) {
+		if(!skillsA.can(agentA)) return false;
+		if(!skillsB.can(agentB)) return true;
+		
+		SkillSet agentASkills = agentA.getSkillSet().getSkills(skillsA);
+		SkillSet agentBSkills = agentA.getSkillSet().getSkills(skillsB);
+		
 		Random rnd = new Random();
-		int aAvg = (int)a.averageSkill();
-		int aValue=0;
+		int aAvg = (int)skillsA.averageSkill();
+		int bAvg = (int)skillsB.averageSkill();
+		useSkills(agentA, agentASkills, bAvg);
+		useSkills(agentB, agentBSkills, aAvg);
+		
+		agentASkills.applyModifiers(agentA);
+		agentBSkills.applyModifiers(agentB);
+		
+		int aValue=0, bValue=0;
 		if(aAvg>0) aValue = rnd.nextInt(aAvg);
-		int bAvg = (int)b.averageSkill();
-		int bValue = 0;
 		if(bAvg>0) bValue = rnd.nextInt(bAvg);
+		
 		return (aValue>bValue);
 	}
 }

@@ -14,7 +14,10 @@ public class BuildRoomEvent extends CommerceEvent {
 
 	@Override
 	public void run() {
-		if(!subtractCost()) return;
+		if(!subtractCost()) {
+			if(notify) Main.player.popupNotify("Room construction cancelled: you cannot afford it");
+			return;
+		}
 		room.getLair().getRoomSet().add(room);
 		if(notify) Main.player.popupNotify("Room construction complete");
 		Main.player.getPageManager().refresh();

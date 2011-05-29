@@ -3,6 +3,7 @@ package com.episkipoe.dragon.agents.skills;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 
 import com.episkipoe.dragon.agents.Agent;
@@ -59,7 +60,23 @@ public class SkillSet implements Serializable {
 		return subSet;
 	}
 	
+	public void awardXP(SkillSet skills, int XP) {
+		for(Skill s : skills.getSkills()) {
+			if(!hasSkill(s.getClass())) continue;
+			getSkill(s.getClass()).awardXP(XP);
+		}
+	}	
+	
 	public void applyModifiers(Agent agent) {
 		
-	}	
+	}
+	
+	public boolean can(Agent agent) {
+		for(Iterator<Skill> iter = skills.values().iterator() ; iter.hasNext(); ) {
+			Skill s = iter.next();
+			if(!agent.can(s.getClass())) return false;
+		}
+		return true;
+	}
+
 }
