@@ -7,24 +7,32 @@ import com.episkipoe.dragon.agents.classes.AgentClass;
 import com.episkipoe.dragon.agents.classes.AgentClassSet;
 import com.episkipoe.dragon.agents.skills.Skill;
 import com.episkipoe.dragon.agents.skills.SkillSet;
+import com.episkipoe.dragon.commands.Command;
 import com.episkipoe.dragon.events.Event;
 import com.episkipoe.dragon.events.EventQueue;
 import com.episkipoe.dragon.rooms.Room;
+import com.episkipoe.dragon.treasure.Treasure;
 import com.episkipoe.dragon.treasure.TreasureList;
 
 
 public abstract class Agent implements Serializable {
 	private static final long serialVersionUID = -3896345659032866402L;
 	
+	public Agent() { }
 	public Agent(int level) {
-		for(int i=0;i<level;i++) levelUp();		
-		postCreate();
+		setLevel(level);
 	} 
+	
+	public void setLevel(int level) {
+		for(int i=0;i<level;i++) levelUp();		
+		postCreate();	
+	}
 
 	/*
 	 * Methods that must be overridden
 	 */
 	public abstract String getType();
+	public abstract Command getHireCommand(Room room, int level) ;
 
 	
 	/*
@@ -48,6 +56,8 @@ public abstract class Agent implements Serializable {
 		}
 		return s.canByDefault();
 	}
+	public boolean canConsume(Class<? extends Treasure> foodClass) { return false; }
+	
 	/**
 	 * 
 	 * @return if this agent mates with the other agent, what species (if any) is produced
@@ -63,16 +73,15 @@ public abstract class Agent implements Serializable {
 	 */
 	public void postLevelUp() { }
 
-	/*
-	 * Utility methods
-	 */
-	
 	/**
 	 * Called after an agent is created and leveled up. 
 	 * put any Agent-specific initialization in here
 	 */
 	public void postCreate() { }
 	
+	/*
+	 * Utility methods
+	 */
 	private String name = "Unnamed";
 	final public void setName(String name) { this.name = name; }
 	final public String getName() { return name; }
@@ -89,7 +98,7 @@ public abstract class Agent implements Serializable {
 	}
 	final public void awardXP(int XP) { 
 		this.XP += XP;
-		int nextLevelAt = 10+2*(level * level);
+		int nextLevelAt = 10+10*(level * level * (level/2));
 		if(this.XP >= nextLevelAt) levelUp();
 	}
 	

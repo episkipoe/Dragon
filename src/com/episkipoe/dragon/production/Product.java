@@ -47,13 +47,15 @@ public class Product implements Serializable {
 	public Cost getCost() { return requires; }
 	public TreasureList getProduces() { return produces; }
 	public boolean skillCheck(Agent agent) {
-		//TODO Award Skill XP for the attempt
 		return SkillUtils.skillCheck(agent, skills, difficulty);
 	}
 	public void produce(Lair from) {
 		if(!CommerceUtils.canAfford(from.getKingdom(), requires)) return;
 		CommerceUtils.subtractCost(from, requires);
 		TreasureList destination = CommerceUtils.getNearestStore(from);
+		if(destination==null) {
+			return;
+		}
 		destination.add(produces);
 	}
 }

@@ -22,8 +22,8 @@ public class AgentEnterLairEvent extends AgentEvent {
 	public void run() {
 		Room guardRoom = lair.getRoomSet().get(GuardRoom.class);
 		if(guardRoom == null) return;
-		if(SkillUtils.skillCheck(agent, SneakSkill.class, guardRoom.level)) return ;
-		if(SkillUtils.skillCheck(agent, FearSkill.class, guardRoom.level)) return ;
+		if(SkillUtils.skillCheck(agent, SneakSkill.class, guardRoom.getLevel())) return ;
+		if(SkillUtils.skillCheck(agent, FearSkill.class, guardRoom.getLevel())) return ;
 		
 		//TODO:  consequences of failing enter lair check
 		postRun();

@@ -18,6 +18,7 @@ import com.episkipoe.dragon.lairs.Lair;
 import com.episkipoe.dragon.lairs.LairList;
 import com.episkipoe.dragon.lairs.mountain.MountainLair;
 import com.episkipoe.dragon.production.food.FarmRoom;
+import com.episkipoe.dragon.production.food.ForestRoom;
 import com.episkipoe.dragon.rooms.Room;
 import com.episkipoe.dragon.treasure.TreasureRoom;
 

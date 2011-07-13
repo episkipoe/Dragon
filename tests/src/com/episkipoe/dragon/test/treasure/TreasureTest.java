@@ -5,7 +5,7 @@ import java.util.List;
 
 import com.episkipoe.dragon.Main;
 import com.episkipoe.dragon.production.building.IronTreasure;
-import com.episkipoe.dragon.production.building.WoodTreasure;
+import com.episkipoe.dragon.production.building.LumberTreasure;
 import com.episkipoe.dragon.production.food.AleTreasure;
 import com.episkipoe.dragon.production.food.GrainTreasure;
 import com.episkipoe.dragon.production.food.MushroomTreasure;
@@ -25,7 +25,7 @@ public class TreasureTest extends android.test.ActivityInstrumentationTestCase2<
 		treasures.add(AleTreasure.class);
 		treasures.add(GrainTreasure.class);
 		treasures.add(IronTreasure.class);
-		treasures.add(WoodTreasure.class);
+		treasures.add(LumberTreasure.class);
 		treasures.add(DiamondTreasure.class);
 		treasures.add(GoldTreasure.class);
 		for(Class<? extends Treasure> type : treasures) {
@@ -49,10 +49,10 @@ public class TreasureTest extends android.test.ActivityInstrumentationTestCase2<
 		
 		assertTrue(treasures.has(AleTreasure.class));
 		assertTrue(treasures.get(AleTreasure.class).qty == 5);
-		assertFalse(treasures.has(WoodTreasure.class));
-		treasures.add(new WoodTreasure(2));
+		assertFalse(treasures.has(LumberTreasure.class));
+		treasures.add(new LumberTreasure(2));
 		assertTrue(treasures.numTreasures() == 2);
-		assertTrue(treasures.has(WoodTreasure.class));
+		assertTrue(treasures.has(LumberTreasure.class));
 		treasures.subtract(new AleTreasure(3));
 		assertTrue(treasures.get(AleTreasure.class).qty == 2);
 		assertTrue(fiveAle.qty == 5);

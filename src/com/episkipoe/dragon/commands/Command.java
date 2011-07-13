@@ -12,6 +12,10 @@ import android.widget.TextView;
 
 import com.episkipoe.dragon.Main;
 
+/**
+ * Commands are buttons that can be clicked by the player
+ *
+ */
 public abstract class Command implements View.OnClickListener, Serializable {
 	private static final long serialVersionUID = 8961022683093633641L;
 	

@@ -15,6 +15,7 @@ import com.episkipoe.dragon.lairs.Lair;
 import com.episkipoe.dragon.lairs.LairList;
 import com.episkipoe.dragon.lairs.VillageLair;
 import com.episkipoe.dragon.production.food.BreweryRoom;
+import com.episkipoe.dragon.production.food.SlaughterRoom;
 import com.episkipoe.dragon.rooms.Room;
 import com.episkipoe.dragon.treasure.TreasureRoom;
 
@@ -32,6 +33,7 @@ public class CityLair extends Lair {
 	public List<Class<? extends Room>> getAllowedRooms() { 
 		List<Class<? extends Room>> rooms = new ArrayList<Class<? extends Room>>(); 
 		rooms.add(BreweryRoom.class);
+		rooms.add(SlaughterRoom.class);
 		rooms.addAll(getCommonRooms());
 		return rooms; 
 	}
@@ -49,6 +51,9 @@ public class CityLair extends Lair {
 		if(level>20) {
 			roomsToBuild.add(GuardRoom.class);
 		}		
+		if(level>8) {
+			roomsToBuild.add(SlaughterRoom.class);
+		}
 		if(level>4) {
 			roomsToBuild.add(BreweryRoom.class);
 		}

@@ -36,18 +36,18 @@ public class AttributeSet implements Serializable {
 	public boolean hasAttribute(Class<? extends Attribute> a) { return Attributes.containsKey(a); }
 	public int getAttributeLevel(Class<? extends Attribute> a) {
 		if(!hasAttribute(a)) return 0;
-		return getAttribute(a).level;
+		return getAttribute(a).get();
 	}
 	public int numAttributes() { return Attributes.size(); }
 	public int totalAttribute() { 
 		int total=0;
-		for(Attribute a : getAttributes()) total += a.level;
+		for(Attribute a : getAttributes()) total += a.get();
 		return total;
 	}
 	public double averageAttribute() {
 		if(numAttributes() <=0) return 0.0;
 		double total=0;
-		for(Attribute a : getAttributes()) total += a.level;
+		for(Attribute a : getAttributes()) total += a.get();
 		total/=numAttributes();
 		return total;
 	}

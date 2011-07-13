@@ -66,12 +66,16 @@ public class Player implements Serializable {
 	public void startGame() {
 		maintenanceTimer = new MaintenanceTimerTask(); 
 		Main.player.showMainPage();
+		if(!getEventThread().isAlive()) {
+			getEventThread().start();
+		}
 	}
 	
 	public void endGame() {
 		if(maintenanceTimer != null) {
 			maintenanceTimer.end();
 		}
+		getEventThread().stop();
 	}
 	
 	public void setMainTitle() {
@@ -83,10 +87,8 @@ public class Player implements Serializable {
 	}
 	
 	private Agent playerAgent=null;
-	public Agent getPlayerAgent() {
-		if(playerAgent==null) playerAgent = PlayerUtils.getPlayerAgent(this);
-		return playerAgent;
-	}
+	public Agent getPlayerAgent() { return playerAgent; }
+	public void setPlayerAgent(Agent playerAgent) { this.playerAgent = playerAgent; }
 	
 	private PlayerProperties properties=null;
 	public PlayerProperties getProperties() {

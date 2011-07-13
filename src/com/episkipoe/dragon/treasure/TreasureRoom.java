@@ -55,6 +55,7 @@ public class TreasureRoom extends Room {
 	}
 	
 	public void postCreate(int level) {
+		//TODO  add more treasures based on level
 		getTreasureList().add(new GoldTreasure(level*10));
 	}
 }

@@ -11,7 +11,7 @@ import com.episkipoe.dragon.treasure.gems.GoldTreasure;
 
 public class ElfAgent extends Agent {
 	private static final long serialVersionUID = -1746273078372318869L;
-	
+	public ElfAgent() { }
 	public ElfAgent(int level) {
 		super(level);
 	}
@@ -19,11 +19,12 @@ public class ElfAgent extends Agent {
 	@Override
 	public String getType() { return "Elf"; }
 
-	static public Command hireCommand(Room room, int level) {
+	@Override
+	public Command getHireCommand(Room room, int level) {
 		TreasureList tl = new TreasureList();
 		tl.add(new MushroomTreasure());
 		tl.add(new GoldTreasure(level));
-		DwarfAgent agent = new DwarfAgent(level); 
+		ElfAgent agent = new ElfAgent(level); 
 		Cost cost = new Cost(tl);
 		return new HireCommand(room, agent, cost);
 	}

@@ -4,18 +4,19 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import com.episkipoe.dragon.agents.Agent;
 import com.episkipoe.dragon.agents.species.DwarfAgent;
 import com.episkipoe.dragon.commands.Command;
 import com.episkipoe.dragon.commerce.Cost;
 import com.episkipoe.dragon.lairs.Lair;
+import com.episkipoe.dragon.production.ProductionRoom;
+import com.episkipoe.dragon.production.ProductionTreasure;
 import com.episkipoe.dragon.production.building.IronTreasure;
 import com.episkipoe.dragon.rooms.BuildRoomCommand;
-import com.episkipoe.dragon.rooms.Room;
 import com.episkipoe.dragon.treasure.gems.GoldTreasure;
-import com.episkipoe.dragon.treasure.gems.MineCommand;
 
 
-public class MineRoom extends Room {
+public class MineRoom extends ProductionRoom {
 	private static final long serialVersionUID = -8155843361549611478L;
 	
 	public MineRoom() { }
@@ -25,22 +26,21 @@ public class MineRoom extends Room {
 
 	@Override
 	public String getCommandName() { return "Mine"; }
+	
+	@Override
+	public List<Class<? extends ProductionTreasure>> getProductTypes() {
+		List<Class<? extends ProductionTreasure>> productTypes = new ArrayList<Class<? extends ProductionTreasure>>();
+		productTypes.add(GoldTreasure.class);
+		productTypes.add(IronTreasure.class);
+		return productTypes;
+	}
+		
+	public List<Class<? extends Agent>> getSpecies() {
+		List<Class<? extends Agent>> species = new ArrayList<Class<? extends Agent>>();
+		species.add(DwarfAgent.class);
+		return species;
+	}	
 
-	public List<Command> getHireCommands() { 
-		List<Command> cmds = new ArrayList<Command>();
-		cmds.add(DwarfAgent.hireCommand(this, level));
-		return cmds;
-	}
-	
-	protected void prepareCommands() {
-		commandList = new ArrayList<Command>();
-		if(lair.isMine()) {
-			commandList.add(new MineCommand(lair, new GoldTreasure(10)));
-			commandList.add(new MineCommand(lair, new IronTreasure(1)));
-			addCommonRoomCommands();
-		}
-	}
-	
 	public Command getBuildCommand(Lair lair) {
 		MineRoom room = new MineRoom(lair);
 		Cost cost = new Cost(10);

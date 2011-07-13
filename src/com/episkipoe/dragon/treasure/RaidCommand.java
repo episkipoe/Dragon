@@ -15,6 +15,7 @@ public class RaidCommand extends Command {
 	}
 	
 	public void onClick(View v) {
+		
 		//TODO transfer resources / prisoners on raid
 	}
 

@@ -33,10 +33,13 @@ public abstract class Room extends CommandPage {
 	/*
 	 * Utility methods
 	 */
-	public int level=1;
 	final public Lair getLair() { return lair; }
 	final public void setLair(Lair lair) { this.lair = lair; }
 	
+	private int level=1;
+	final public int getLevel() { return level; }
+	final public void increaseLevel() { level++; }
+
 	private AgentList employees=null;
 	final public AgentList getEmployees() { 
 		if(employees==null) employees = new AgentList();
@@ -62,9 +65,12 @@ public abstract class Room extends CommandPage {
 	}
 	
 	final public void addCommonRoomCommands() {
-		//commandList.add(getAddGuardCommand());
-		List<Command> hireCmds = getHireCommands();
-		if(hireCmds != null) commandList.addAll(hireCmds);
+		switch(Agent.getRelationship(lair.getOwner())) {
+		case PLAYER:
+			//commandList.add(getAddGuardCommand());
+			List<Command> hireCmds = getHireCommands();
+			if(hireCmds != null) commandList.addAll(hireCmds);
+		}
 	}
 	
 	private EventQueue events=null;

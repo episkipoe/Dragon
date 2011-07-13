@@ -7,7 +7,7 @@ public abstract class Skill implements Serializable {
 	
 	public abstract String getName();
 	public abstract boolean canByDefault();
-	int level=0, XP=0;
+	private int level=0, XP=0;
 	final private void levelUp() { level++; }
 	final public void awardXP(int XP) { 
 		this.XP += XP;

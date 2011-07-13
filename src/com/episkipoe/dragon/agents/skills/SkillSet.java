@@ -33,18 +33,18 @@ public class SkillSet implements Serializable {
 	public boolean hasSkill(Class<? extends Skill> s) { return skills.containsKey(s); }
 	public int getSkillLevel(Class<? extends Skill> s) {
 		if(!hasSkill(s)) return 0;
-		return getSkill(s).level;
+		return getSkill(s).get();
 	}
 	public int numSkills() { return skills.size(); }
 	public int totalSkill() { 
 		int total=0;
-		for(Skill s : getSkills()) total += s.level;
+		for(Skill s : getSkills()) total += s.get();
 		return total;
 	}
 	public double averageSkill() {
 		if(numSkills() <=0) return 0.0;
 		double total=0;
-		for(Skill s : getSkills()) total += s.level;
+		for(Skill s : getSkills()) total += s.get();
 		total/=numSkills();
 		return total;
 	}
@@ -62,10 +62,18 @@ public class SkillSet implements Serializable {
 	
 	public void awardXP(SkillSet skills, int XP) {
 		for(Skill s : skills.getSkills()) {
-			if(!hasSkill(s.getClass())) continue;
-			getSkill(s.getClass()).awardXP(XP);
+			awardXP(s.getClass(), XP);
 		}
 	}	
+	
+	public void awardXP(Class<? extends Skill> skill, int XP) {
+		try {
+			if(!hasSkill(skill)) { add(skill.newInstance()); }
+		} catch (Exception e) {
+			System.out.println("Exception awarding XP: " + e.getMessage());
+		}
+		getSkill(skill).awardXP(XP);
+	}
 	
 	public void applyModifiers(Agent agent) {
 		
@@ -78,5 +86,6 @@ public class SkillSet implements Serializable {
 		}
 		return true;
 	}
+
 
 }

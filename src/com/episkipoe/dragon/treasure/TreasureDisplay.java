@@ -11,17 +11,24 @@ import com.episkipoe.dragon.agents.Agent;
 import com.episkipoe.dragon.commands.CommandPage;
 import com.episkipoe.dragon.player.GUI;
 
-class TreasureDisplay extends CommandPage {
+public class TreasureDisplay extends CommandPage {
 	private static final long serialVersionUID = -3496239085773165659L;
 	Agent owner;
 	TreasureList treasures;
-	protected TreasureDisplay(Agent owner, TreasureList treasures) {
+	String commandName = "Treasures";
+	public TreasureDisplay(Agent owner, TreasureList treasures) {
 		this.owner=owner;
 		this.treasures=treasures;
 	}
+	public TreasureDisplay(Agent owner, TreasureList treasures, String commandName) {
+		this.owner=owner;
+		this.treasures=treasures;	
+		this.commandName = commandName;
+	}
 
+	void setCommandName(String commandName) { this.commandName = commandName; }
 	@Override
-	public String getCommandName() { return "Treasures"; }
+	public String getCommandName() { return commandName; }
 	
 	protected void addHeader(ViewGroup layout) { 
 		if(treasures.getTreasures() == null) {

@@ -13,35 +13,36 @@ import com.episkipoe.dragon.production.ProductionRoom;
 import com.episkipoe.dragon.production.ProductionTreasure;
 import com.episkipoe.dragon.rooms.BuildRoomCommand;
 
-public class FarmRoom extends ProductionRoom {
-	private static final long serialVersionUID = -2818358797223917564L;
-	
-	public FarmRoom() { }
-	public FarmRoom(Lair lair) {
+public class KitchenRoom extends ProductionRoom {
+	private static final long serialVersionUID = -3674482984714378812L;
+
+	public KitchenRoom() {} 
+	public KitchenRoom(Lair lair) {
 		super(lair);
-	}
+	} 
 	
-	@Override
-	public String getCommandName() { return "Farm"; }
+	@Override public String getCommandName() { return "Kitchen"; }
 	
 	@Override
 	public List<Class<? extends ProductionTreasure>> getProductTypes() {
-		List<Class<? extends ProductionTreasure>> productTypes = new ArrayList<Class<? extends ProductionTreasure>>();
-		productTypes.add(CowTreasure.class);
-		productTypes.add(GrainTreasure.class);
-		return productTypes;
+		//TODO kitchen products
+		return null;
 	}
 
+	@Override
 	public List<Class<? extends Agent>> getSpecies() {
 		List<Class<? extends Agent>> species = new ArrayList<Class<? extends Agent>>();
-		species.add(ElfAgent.class);
 		species.add(HumanAgent.class);
+		species.add(ElfAgent.class);
 		return species;
 	}
-	
+
+	@Override
 	public Command getBuildCommand(Lair lair) {
-		FarmRoom room = new FarmRoom(lair);
+		KitchenRoom room = new KitchenRoom (lair);
 		Cost cost = new Cost(6);
 		return new BuildRoomCommand(room, cost);		
 	}
+
+
 }

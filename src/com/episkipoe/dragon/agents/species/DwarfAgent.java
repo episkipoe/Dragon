@@ -11,6 +11,7 @@ import com.episkipoe.dragon.treasure.gems.GoldTreasure;
 
 public class DwarfAgent extends Agent {
 	private static final long serialVersionUID = -1746273078372318869L;
+	public DwarfAgent() { }
 	public DwarfAgent(int level) {
 		super(level);
 	}
@@ -19,7 +20,7 @@ public class DwarfAgent extends Agent {
 	public String getType() { return "Dwarf"; }
 
 	
-	static public Command hireCommand(Room room, int level) {
+	public Command getHireCommand(Room room, int level) {
 		TreasureList tl = new TreasureList();
 		tl.add(new AleTreasure());
 		tl.add(new GoldTreasure(level));

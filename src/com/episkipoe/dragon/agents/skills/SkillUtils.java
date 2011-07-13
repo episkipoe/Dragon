@@ -20,16 +20,17 @@ public class SkillUtils {
 		return (value>difficulty);
 	}
 	
-	private static void useSkills(Agent agent, SkillSet skills, int difficulty) {
-		int avgSkill = (int)skills.averageSkill();
+	private static void useSkills(Agent agent, SkillSet agentSkills, int difficulty, SkillSet skillsUsed) {
+		int avgSkill = (int)agentSkills.averageSkill();
 		if(difficulty>(avgSkill+20)) return ; //Trying something too hard 
-		agent.getSkillSet().awardXP(skills, 1);
+		agent.getSkillSet().awardXP(skillsUsed, 1);
 	}
-	
+
+	//TODO:  level in required indicates relative contribution 
 	public static boolean skillCheck(Agent agent, SkillSet required, int difficulty) {
 		if(!required.can(agent)) return false;
 		SkillSet agentSkills = agent.getSkillSet().getSkills(required);
-		useSkills(agent, agentSkills, difficulty);
+		useSkills(agent, agentSkills, difficulty, required);
 		agentSkills.applyModifiers(agent);
 		return skillCheck(agentSkills, difficulty);
 	}
@@ -57,8 +58,8 @@ public class SkillUtils {
 		Random rnd = new Random();
 		int aAvg = (int)skillsA.averageSkill();
 		int bAvg = (int)skillsB.averageSkill();
-		useSkills(agentA, agentASkills, bAvg);
-		useSkills(agentB, agentBSkills, aAvg);
+		useSkills(agentA, agentASkills, bAvg, skillsA);
+		useSkills(agentB, agentBSkills, aAvg, skillsB);
 		
 		agentASkills.applyModifiers(agentA);
 		agentBSkills.applyModifiers(agentB);

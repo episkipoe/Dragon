@@ -10,6 +10,10 @@ import android.widget.TextView;
 
 import com.episkipoe.dragon.Main;
 
+/**
+ * A collection of {@link Command}s
+ *
+ */
 public abstract class CommandPage extends Command {
 	private static final long serialVersionUID = 4070075706658130691L;
 	
@@ -41,20 +45,18 @@ public abstract class CommandPage extends Command {
 	}
 	
 	final public void table(ViewGroup layout) {
+		if(commandList == null) { return; }
 		TableLayout table = new TableLayout(Main.player.getActivity());
 		layout.addView(table);	
-		if(commandList != null) {
-			for(Command cmd : commandList) {
-				cmd.addToTable(table);
-			}
+		for(Command cmd : commandList) {
+			if(cmd != null) cmd.addToTable(table);
 		}
 	}
 	
 	final public void linear(ViewGroup layout) {
-		if(commandList != null) {
-			for(Command cmd : commandList) {
-				cmd.addToLayout(layout);
-			}
+		if(commandList == null) { return; } 
+		for(Command cmd : commandList) {
+			if(cmd != null) cmd.addToLayout(layout);
 		}
 	}
 }
